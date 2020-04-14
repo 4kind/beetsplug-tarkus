@@ -1,0 +1,6 @@
+.idea
+config.yaml
+library.db
+static/music
+venv
+__pycache__
