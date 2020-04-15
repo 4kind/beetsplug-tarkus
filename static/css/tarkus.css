@@ -110,7 +110,7 @@ div#amplitude-right div.song.amplitude-active-song-container:hover div.play-butt
 
 div#amplitude-right div.song div.song-meta-data {
     float: left;
-    width: calc(100% - 110px);
+    width: calc(100% - 115px);
 }
 
 div#amplitude-right div.song div.song-meta-data span.song-title {
@@ -134,6 +134,16 @@ div#amplitude-right div.song div.song-meta-data span.song-artist {
     text-overflow: ellipsis;
 }
 
+div#amplitude-right div.song div.song-meta-data span.song-album {
+    color: #607D8B;
+    font-size: 14px;
+    /*font-weight: bold;*/
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 div#amplitude-right div.song img.bandcamp-grey {
     float: left;
     display: block;
@@ -144,6 +154,19 @@ div#amplitude-right div.song img.bandcamp-white {
     float: left;
     display: none;
     margin-top: 10px;
+}
+
+div#amplitude-right div.song div.song-track {
+    color: #272726;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    width: 20px;
+    text-align: right;
+    margin-right: 10px;
 }
 
 div#amplitude-right div.song span.song-duration {
