@@ -48,10 +48,10 @@ def item_file(item_id):
 @app.route('/item/query/', defaults={'queries': None})
 @app.route('/item/query/<queries>')
 def item_query(queries):
-    if "albumartist+" or "albumartist-" not in queries:
+    if "+ " or "- " not in queries:
         if queries is None:
-            queries = "";
-        queries += " albumartist+";
+            queries = ""
+        queries += " albumartist+ year+ track+"
 
     items = []
     res = g.lib.items(queries)
