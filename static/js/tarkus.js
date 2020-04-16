@@ -2,6 +2,7 @@ let songElements = document.getElementsByClassName('song');
 let songsNodeElem = document.getElementById("songs-node-container");
 let playlistNodeElem = document.getElementById("playlist-node-container");
 let queryInput = document.getElementById("query");
+const DEFAULT_PLAYLIST = 'default_playlist';
 
 for (let i = 0; i < songElements.length; i++) {
     /*
@@ -35,7 +36,7 @@ for (let i = 0; i < songElements.length; i++) {
 Amplitude.init({
     songs: [],
 });
-Amplitude.addPlaylist('deltron', {}, []);
+Amplitude.addPlaylist(DEFAULT_PLAYLIST, {}, []);
 
 function requestQuery() {
 
@@ -74,13 +75,12 @@ function requestQuery() {
 }
 
 function appendSongToSongsInDom(item, index) {
-    let div_1 = document.createElement("DIV");
-    div_1.className = "song"
+    let div_songs_container = document.createElement("DIV");
+    div_songs_container.className = "song"
 
-    // Execute a function when the user releases a key on the keyboard
-    div_1.addEventListener("click", function (event) {
+    div_songs_container.addEventListener("click", function (event) {
         appendSongToPlaylistInDom(item, index)
-        Amplitude.addSongToPlaylist(item, 'deltron');
+        Amplitude.addSongToPlaylist(item, DEFAULT_PLAYLIST);
     });
 
     let div_song_meta_data = document.createElement("DIV");
@@ -110,22 +110,21 @@ function appendSongToSongsInDom(item, index) {
     div_song_meta_data.appendChild(span_artist);
     div_song_meta_data.appendChild(span_album);
 
-    div_1.appendChild(span_track);
-    div_1.appendChild(div_song_meta_data);
-    div_1.appendChild(span_duration);
+    div_songs_container.appendChild(span_track);
+    div_songs_container.appendChild(div_song_meta_data);
+    div_songs_container.appendChild(span_duration);
 
-    songsNodeElem.appendChild(div_1);
+    songsNodeElem.appendChild(div_songs_container);
 }
 
 function appendSongToPlaylistInDom(item, index) {
-    let playlist_index = Amplitude.getSongsInPlaylist('deltron').length;
-    let div_1 = document.createElement("DIV");
-    div_1.className = "song amplitude-paused"
+    let playlist_index = Amplitude.getSongsInPlaylist(DEFAULT_PLAYLIST).length;
 
-    div_1.setAttribute("data-amplitude-song-index", playlist_index);
-
-    div_1.addEventListener("click", function (event) {
-        Amplitude.playPlaylistSongAtIndex(playlist_index, 'deltron');
+    let div_playlist_song_container = document.createElement("DIV");
+    div_playlist_song_container.className = "song amplitude-paused"
+    div_playlist_song_container.setAttribute("data-amplitude-song-index", playlist_index);
+    div_playlist_song_container.addEventListener("click", function (event) {
+        Amplitude.playPlaylistSongAtIndex(playlist_index, DEFAULT_PLAYLIST);
 
         let elemAct = document.querySelectorAll('#playlist-node-container .song');
 
@@ -173,6 +172,7 @@ function appendSongToPlaylistInDom(item, index) {
 
     let span_album = document.createElement("SPAN");
     span_album.className = "song-album";
+    div_playlist_song_container
     span_album.innerHTML = item.album + ' (' + item.original_year + ')';
 
     let span_duration = document.createElement("SPAN");
@@ -186,11 +186,11 @@ function appendSongToPlaylistInDom(item, index) {
     div_now_playing_container.appendChild(div_play_button_container);
     div_now_playing_container.appendChild(img_now_playing);
 
-    div_1.appendChild(div_now_playing_container);
-    div_1.appendChild(span_track);
-    div_1.appendChild(div_song_meta_data);
-    div_1.appendChild(span_duration);
-    playlistNodeElem.appendChild(div_1);
+    div_playlist_song_container.appendChild(div_now_playing_container);
+    div_playlist_song_container.appendChild(span_track);
+    div_playlist_song_container.appendChild(div_song_meta_data);
+    div_playlist_song_container.appendChild(span_duration);
+    playlistNodeElem.appendChild(div_playlist_song_container);
 }
 
 function getSongDuration(item) {

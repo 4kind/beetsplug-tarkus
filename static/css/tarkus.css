@@ -6,6 +6,14 @@ div#amplitude-player {
     max-width: 900px;
 }
 
+#query {
+    width: calc(70% - 4px);
+}
+
+#queryBtn {
+    width: calc(30% - 4px);
+}
+
 /* Small only */
 @media screen and (max-width: 39.9375em) {
     div#amplitude-player {
