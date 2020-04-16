@@ -45,7 +45,7 @@ function requestQuery() {
         if (this.readyState === 4 && this.status === 200) {
             let response = JSON.parse(this.responseText)
             let items = response.items;
-            songsNodeElem.innerHTML = "";
+            removeSongs();
 
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
@@ -57,6 +57,9 @@ function requestQuery() {
                     "original_year": item.original_year,
                     "name": item.title,
                     "artist": item.artist,
+                    "mb_artistid": item.mb_artistid,
+                    "mb_albumid": item.mb_albumid,
+                    "mb_albumartistid": item.mb_albumartistid,
                     "albumartist": item.albumartist,
                     "year": item.year,
                     "album": item.album,
@@ -65,8 +68,9 @@ function requestQuery() {
                     "cover_art_url": "/album/" + item.album_id + "/art"
                 };
 
-                appendSongToSongsInDom(song, i);
-                Amplitude.bindNewElements();
+                Amplitude.addSong(song);
+
+                appendSongToSongsInDom(song);
             }
         }
     };
@@ -74,14 +78,9 @@ function requestQuery() {
     xhttp.send();
 }
 
-function appendSongToSongsInDom(item, index) {
+function appendSongToSongsInDom(item) {
     let div_songs_container = document.createElement("DIV");
     div_songs_container.className = "song"
-
-    div_songs_container.addEventListener("click", function (event) {
-        appendSongToPlaylistInDom(item, index)
-        Amplitude.addSongToPlaylist(item, DEFAULT_PLAYLIST);
-    });
 
     let div_song_meta_data = document.createElement("DIV");
     div_song_meta_data.className = "song-meta-data";
@@ -93,14 +92,36 @@ function appendSongToSongsInDom(item, index) {
     let span_title = document.createElement("SPAN");
     span_title.className = "song-title";
     span_title.innerHTML = item.title;
+    span_title.addEventListener("click", function () {
+        appendSongToPlaylistInDom(item)
+        Amplitude.addSongToPlaylist(item, DEFAULT_PLAYLIST);
+    });
 
     let span_artist = document.createElement("SPAN");
     span_artist.className = "song-artist";
     span_artist.innerHTML = item.artist;
+    span_artist.addEventListener("click", function () {
+        let songs = Amplitude.getSongs();
+        for (let i = 0; i < songs.length; i++) {
+            if (songs[i].mb_artistid === item.mb_artistid) {
+                appendSongToPlaylistInDom(songs[i])
+                Amplitude.addSongToPlaylist(songs[i], DEFAULT_PLAYLIST);
+            }
+        }
+    });
 
     let span_album = document.createElement("SPAN");
     span_album.className = "song-album";
     span_album.innerHTML = item.album + ' (' + item.original_year + ')';
+    span_album.addEventListener("click", function () {
+        let songs = Amplitude.getSongs();
+        for (let i = 0; i < songs.length; i++) {
+            if (songs[i].mb_albumid === item.mb_albumid) {
+                appendSongToPlaylistInDom(songs[i])
+                Amplitude.addSongToPlaylist(songs[i], DEFAULT_PLAYLIST);
+            }
+        }
+    });
 
     let span_duration = document.createElement("SPAN");
     span_duration.className = "song-duration";
@@ -117,7 +138,7 @@ function appendSongToSongsInDom(item, index) {
     songsNodeElem.appendChild(div_songs_container);
 }
 
-function appendSongToPlaylistInDom(item, index) {
+function appendSongToPlaylistInDom(item) {
     let playlist_index = Amplitude.getSongsInPlaylist(DEFAULT_PLAYLIST).length;
 
     let div_playlist_song_container = document.createElement("DIV");
@@ -126,15 +147,7 @@ function appendSongToPlaylistInDom(item, index) {
     div_playlist_song_container.addEventListener("click", function (event) {
         Amplitude.playPlaylistSongAtIndex(playlist_index, DEFAULT_PLAYLIST);
 
-        let elemAct = document.querySelectorAll('#playlist-node-container .song');
-
-        for (let i = 0; i < elemAct.length; i++) {
-            if (playlist_index === i) {
-                elemAct[i].className = "song amplitude-playing"
-            } else {
-                elemAct[i].className = "song amplitude-paused"
-            }
-        }
+        setActiveSongInPlaylist(playlist_index);
 
         let playPauseElem = document.getElementById('play-pause');
 
@@ -172,7 +185,6 @@ function appendSongToPlaylistInDom(item, index) {
 
     let span_album = document.createElement("SPAN");
     span_album.className = "song-album";
-    div_playlist_song_container
     span_album.innerHTML = item.album + ' (' + item.original_year + ')';
 
     let span_duration = document.createElement("SPAN");
@@ -193,9 +205,37 @@ function appendSongToPlaylistInDom(item, index) {
     playlistNodeElem.appendChild(div_playlist_song_container);
 }
 
+function setActiveSongInPlaylist(playlist_index) {
+    let elemAct = document.querySelectorAll('#playlist-node-container .song');
+
+    for (let i = 0; i < elemAct.length; i++) {
+        if (playlist_index === i) {
+            elemAct[i].className = "song amplitude-playing"
+        } else {
+            elemAct[i].className = "song amplitude-paused"
+        }
+    }
+}
+
 function getSongDuration(item) {
     let minutes = Math.floor(item.length / 60).toString();
     let seconds = Math.round(item.length - minutes * 60).toString().padStart(2, '0');
 
     return minutes + ':' + seconds;
+}
+
+function clearPlaylist() {
+    let songsFromPlaylist = Amplitude.getSongsInPlaylist(DEFAULT_PLAYLIST);
+
+    while (songsFromPlaylist.length > 0) {
+        Amplitude.removeSongFromPlaylist(0, DEFAULT_PLAYLIST);
+    }
+    playlistNodeElem.innerHTML = "";
+}
+
+function removeSongs() {
+    while (Amplitude.getSongs().length > 0) {
+        Amplitude.removeSong(0);
+    }
+    songsNodeElem.innerHTML = "";
 }

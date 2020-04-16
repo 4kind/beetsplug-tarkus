@@ -80,10 +80,25 @@ div#amplitude-middle {
     flex-direction: column;
 }
 
-div#amplitude-right div.song,
 div#amplitude-middle div.song {
     cursor: pointer;
     padding: 10px;
+}
+
+div#amplitude-right div.song {
+    padding: 10px;
+}
+
+div#amplitude-right div.song .song-title,
+div#amplitude-right div.song .song-artist,
+div#amplitude-right div.song .song-album {
+    cursor: pointer;
+}
+
+div#amplitude-right div.song .song-title:hover,
+div#amplitude-right div.song .song-artist:hover,
+div#amplitude-right div.song .song-album:hover {
+    text-decoration: underline;
 }
 
 div#amplitude-middle div.song div.song-now-playing-icon-container {
@@ -99,11 +114,11 @@ div#amplitude-middle div.song div.song-meta-data {
     width: calc(100% - 115px);
 }
 
-div#amplitude-middle #playlist-node-container .song.amplitude-paused .song-now-playing-icon-container img{
+div#amplitude-middle #playlist-node-container .song.amplitude-paused .song-now-playing-icon-container img {
     display: none;
 }
 
-div#amplitude-middle #playlist-node-container .song.amplitude-playing .song-now-playing-icon-container img{
+div#amplitude-middle #playlist-node-container .song.amplitude-playing .song-now-playing-icon-container img {
     display: block;
 }
 
