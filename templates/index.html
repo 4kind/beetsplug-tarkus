@@ -3,7 +3,7 @@
 <head>
     <title>AmplitudeJS Testing</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tarkus.css') }}"/>
-    <script src="{{ url_for('static', filename='js/amplitude.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/amplitude.js') }}"></script>
 </head>
 <body>
 <!-- Blue Playlist Container -->
@@ -70,13 +70,18 @@
         </div>
         <!-- End Left Side Player -->
 
+        <div id="amplitude-middle">
+            <div id="playlist-node-container">
+            </div>
+        </div>
+
         <!-- Right Side Player -->
         <div id="amplitude-right">
             <div>
                 <input type="search" id="query" placeholder="Query (i.e. album:Album Name)">
                 <button id="queryBtn" onclick="requestQuery()">Search</button>
             </div>
-            <div id="playlist-node-container">
+            <div id="songs-node-container">
             </div>
         </div>
         <!-- End Right Side Player -->

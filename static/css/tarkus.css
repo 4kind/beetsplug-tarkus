@@ -30,7 +30,7 @@ div#amplitude-player {
 div#amplitude-left {
     padding: 0;
     border-right: 1px solid #CFD8DC;
-    width: 50%;
+    width: 34%;
     display: flex;
     flex-direction: column;
 }
@@ -63,57 +63,44 @@ div#amplitude-left div#player-left-bottom div#volume-container:after {
     }
 }
 
-div#amplitude-right {
+div#amplitude-right,
+div#amplitude-middle {
     padding: 0;
     overflow-y: scroll;
-    width: 50%;
+    width: 33%;
     display: flex;
     flex-direction: column;
 }
 
-div#amplitude-right div.song {
+div#amplitude-right div.song,
+div#amplitude-middle div.song {
     cursor: pointer;
     padding: 10px;
 }
 
-div#amplitude-right div.song div.song-now-playing-icon-container {
+div#amplitude-middle div.song div.song-now-playing-icon-container {
     float: left;
     width: 20px;
     height: 20px;
     margin-right: 10px;
 }
 
-div#amplitude-right div.song div.song-now-playing-icon-container img.now-playing {
-    display: none;
-    margin-top: 15px;
-}
-
-div#amplitude-right div.song div.play-button-container {
-    display: none;
-    background: url("/static/images/list-play-light.png") no-repeat;
-    width: 22px;
-    height: 22px;
-    margin-top: 10px;
-}
-
-div#amplitude-right div.song div.play-button-container:hover {
-    background: url("/static/images/list-play-hover.png") no-repeat;
-}
-
-div#amplitude-right div.song.amplitude-active-song-container div.song-now-playing-icon-container img.now-playing {
-    display: block;
-}
-
-div#amplitude-right div.song.amplitude-active-song-container:hover div.play-button-container {
-    display: none;
-}
-
-div#amplitude-right div.song div.song-meta-data {
+div#amplitude-right div.song div.song-meta-data,
+div#amplitude-middle div.song div.song-meta-data {
     float: left;
     width: calc(100% - 115px);
 }
 
-div#amplitude-right div.song div.song-meta-data span.song-title {
+div#amplitude-middle #playlist-node-container .song.amplitude-paused .song-now-playing-icon-container img{
+    display: none;
+}
+
+div#amplitude-middle #playlist-node-container .song.amplitude-playing .song-now-playing-icon-container img{
+    display: block;
+}
+
+div#amplitude-right div.song div.song-meta-data span.song-title,
+div#amplitude-middle div.song div.song-meta-data span.song-title {
     color: #272726;
     font-size: 16px;
     display: block;
@@ -123,7 +110,8 @@ div#amplitude-right div.song div.song-meta-data span.song-title {
     text-overflow: ellipsis;
 }
 
-div#amplitude-right div.song div.song-meta-data span.song-artist {
+div#amplitude-right div.song div.song-meta-data span.song-artist,
+div#amplitude-middle div.song div.song-meta-data span.song-artist {
     color: #607D8B;
     font-size: 14px;
     font-weight: bold;
@@ -134,7 +122,8 @@ div#amplitude-right div.song div.song-meta-data span.song-artist {
     text-overflow: ellipsis;
 }
 
-div#amplitude-right div.song div.song-meta-data span.song-album {
+div#amplitude-right div.song div.song-meta-data span.song-album,
+div#amplitude-middle div.song div.song-meta-data span.song-album {
     color: #607D8B;
     font-size: 14px;
     /*font-weight: bold;*/
@@ -144,19 +133,8 @@ div#amplitude-right div.song div.song-meta-data span.song-album {
     text-overflow: ellipsis;
 }
 
-div#amplitude-right div.song img.bandcamp-grey {
-    float: left;
-    display: block;
-    margin-top: 10px;
-}
-
-div#amplitude-right div.song img.bandcamp-white {
-    float: left;
-    display: none;
-    margin-top: 10px;
-}
-
-div#amplitude-right div.song div.song-track {
+div#amplitude-right div.song div.song-track,
+div#amplitude-middle div.song div.song-track {
     color: #272726;
     font-size: 16px;
     font-weight: 600;
@@ -169,7 +147,8 @@ div#amplitude-right div.song div.song-track {
     margin-right: 10px;
 }
 
-div#amplitude-right div.song span.song-duration {
+div#amplitude-right div.song span.song-duration,
+div#amplitude-middle div.song span.song-duration {
     float: left;
     width: 55px;
     text-align: center;
@@ -179,7 +158,8 @@ div#amplitude-right div.song span.song-duration {
     font-weight: 500;
 }
 
-div#amplitude-right div.song:after {
+div#amplitude-right div.song:after,
+div#amplitude-middle div.song:after {
     content: "";
     display: table;
     clear: both;
@@ -188,6 +168,10 @@ div#amplitude-right div.song:after {
 /* Small only */
 @media screen and (max-width: 39.9375em) {
     div#amplitude-player div#amplitude-right {
+        width: 100%;
+    }
+
+    div#amplitude-player div#amplitude-middle {
         width: 100%;
     }
 }
