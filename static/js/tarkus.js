@@ -1,51 +1,117 @@
-let songElements = document.getElementsByClassName('song');
 let songsNodeElem = document.getElementById("songs-node-container");
-let playlistNodeElem = document.getElementById("playlist-node-container");
 let queryInput = document.getElementById("query");
-const DEFAULT_PLAYLIST = 'default_playlist';
+let songsToAdd = [];
 
-for (let i = 0; i < songElements.length; i++) {
-    /*
-        Ensure that on mouseover, CSS styles don't get messed up for active songs.
-    */
-    songElements[i].addEventListener('mouseover', function () {
-        this.style.backgroundColor = '#00A0FF';
+Amplitude.init({
+    "songs": []
+});
 
-        this.querySelectorAll('.song-meta-data .song-title')[0].style.color = '#FFFFFF';
-        this.querySelectorAll('.song-meta-data .song-artist')[0].style.color = '#FFFFFF';
+/*
+  Shows the playlist
+*/
+document.getElementsByClassName('show-playlist')[0].addEventListener('click', function () {
+    document.getElementById('white-player-playlist-container').classList.remove('slide-out-top');
+    document.getElementById('white-player-playlist-container').classList.add('slide-in-top');
+    document.getElementById('white-player-playlist-container').style.display = "block";
+});
 
-        if (!this.classList.contains('amplitude-active-song-container')) {
-            this.querySelectorAll('.play-button-container')[0].style.display = 'block';
+/*
+  Hides the playlist
+*/
+document.getElementsByClassName('close-playlist')[0].addEventListener('click', function () {
+    document.getElementById('white-player-playlist-container').classList.remove('slide-in-top');
+    document.getElementById('white-player-playlist-container').classList.add('slide-out-top');
+    document.getElementById('white-player-playlist-container').style.display = "none";
+});
+
+function addToPlaylistEvent(element) {
+    element.addEventListener('click', function () {
+        /*
+          Adds the song to Amplitude, appends the song to the display,
+          then rebinds all of the AmplitudeJS elements.
+        */
+        let songToAddIndex = this.getAttribute('song-to-add');
+        let newIndex = Amplitude.addSong(songsToAdd[songToAddIndex]);
+
+        appendToSongDisplay(songsToAdd[songToAddIndex], newIndex);
+        Amplitude.bindNewElements();
+
+        const isFirstSong = Amplitude.getSongs().length === 1;
+        if (isFirstSong) {
+            document.getElementById('next').click();
         }
-
-        this.querySelectorAll('.song-duration')[0].style.color = '#FFFFFF';
-    });
-
-    /*
-        Ensure that on mouseout, CSS styles don't get messed up for active songs.
-    */
-    songElements[i].addEventListener('mouseout', function () {
-        this.style.backgroundColor = '#FFFFFF';
-        this.querySelectorAll('.song-meta-data .song-title')[0].style.color = '#272726';
-        this.querySelectorAll('.song-meta-data .song-artist')[0].style.color = '#607D8B';
-        this.querySelectorAll('.play-button-container')[0].style.display = 'none';
-        this.querySelectorAll('.song-duration')[0].style.color = '#607D8B';
     });
 }
 
-Amplitude.init({
-    songs: [],
-});
-Amplitude.addPlaylist(DEFAULT_PLAYLIST, {}, []);
+/*
+  Appends the song to the display.
+*/
+function appendToSongDisplay(song, index) {
+    /*
+      Grabs the playlist element we will be appending to.
+    */
+    let playlistElement = document.querySelector('.white-player-playlist');
 
-function requestQuery() {
+    /*
+      Creates the playlist song element
+    */
+    let playlistSong = document.createElement('div');
+    playlistSong.setAttribute('class', 'white-player-playlist-song amplitude-song-container amplitude-play-pause');
+    playlistSong.setAttribute('data-amplitude-song-index', index);
 
+    /*
+      Creates the playlist song image element
+    */
+    let playlistSongImg = document.createElement('img');
+    playlistSongImg.setAttribute('src', song.cover_art_url);
+
+    /*
+      Creates the playlist song meta element
+    */
+    let playlistSongMeta = document.createElement('div');
+    playlistSongMeta.setAttribute('class', 'playlist-song-meta');
+
+    /*
+      Creates the playlist song name element
+    */
+    let playlistSongName = document.createElement('span');
+    playlistSongName.setAttribute('class', 'playlist-song-name');
+    playlistSongName.innerHTML = song.name;
+
+    /*
+      Creates the playlist song artist album element
+    */
+    let playlistSongArtistAlbum = document.createElement('span');
+    playlistSongArtistAlbum.setAttribute('class', 'playlist-song-artist');
+    playlistSongArtistAlbum.innerHTML = song.artist + ' &bull; ' + song.album;
+
+    /*
+      Appends the name and artist album to the playlist song meta.
+    */
+    playlistSongMeta.appendChild(playlistSongName);
+    playlistSongMeta.appendChild(playlistSongArtistAlbum);
+
+    /*
+      Appends the song image and meta to the song element
+    */
+    playlistSong.appendChild(playlistSongImg);
+    playlistSong.appendChild(playlistSongMeta);
+
+    /*
+      Appends the song element to the playlist
+    */
+    playlistElement.appendChild(playlistSong);
+}
+
+document.getElementById('queryBtn').addEventListener('click', function () {
     let xhttp = new XMLHttpRequest();
+
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             let response = JSON.parse(this.responseText)
             let items = response.items;
-            removeSongs();
+
+            document.getElementById('songs-node-container').innerHTML = '';
 
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
@@ -68,174 +134,44 @@ function requestQuery() {
                     "cover_art_url": "/album/" + item.album_id + "/art"
                 };
 
-                Amplitude.addSong(song);
+                songsToAdd.push(song);
 
-                appendSongToSongsInDom(song);
+                appendSongToSongsInDom(song, i);
             }
         }
     };
     xhttp.open("GET", "/item/query/" + queryInput.value, true);
     xhttp.send();
-}
+});
 
-function appendSongToSongsInDom(item) {
-    let div_songs_container = document.createElement("DIV");
-    div_songs_container.className = "song"
-
-    let div_song_meta_data = document.createElement("DIV");
-    div_song_meta_data.className = "song-meta-data";
-
-    let span_track = document.createElement("DIV");
-    span_track.className = "song-track";
-    span_track.innerHTML = item.track;
-
-    let span_title = document.createElement("SPAN");
-    span_title.className = "song-title";
-    span_title.innerHTML = item.title;
-    span_title.addEventListener("click", function () {
-        appendSongToPlaylistInDom(item)
-        Amplitude.addSongToPlaylist(item, DEFAULT_PLAYLIST);
-    });
-
-    let span_artist = document.createElement("SPAN");
-    span_artist.className = "song-artist";
-    span_artist.innerHTML = item.artist;
-    span_artist.addEventListener("click", function () {
-        let songs = Amplitude.getSongs();
-        for (let i = 0; i < songs.length; i++) {
-            if (songs[i].mb_artistid === item.mb_artistid) {
-                appendSongToPlaylistInDom(songs[i])
-                Amplitude.addSongToPlaylist(songs[i], DEFAULT_PLAYLIST);
-            }
-        }
-    });
-
-    let span_album = document.createElement("SPAN");
-    span_album.className = "song-album";
-    span_album.innerHTML = item.album + ' (' + item.original_year + ')';
-    span_album.addEventListener("click", function () {
-        let songs = Amplitude.getSongs();
-        for (let i = 0; i < songs.length; i++) {
-            if (songs[i].mb_albumid === item.mb_albumid) {
-                appendSongToPlaylistInDom(songs[i])
-                Amplitude.addSongToPlaylist(songs[i], DEFAULT_PLAYLIST);
-            }
-        }
-    });
-
-    let span_duration = document.createElement("SPAN");
-    span_duration.className = "song-duration";
-    span_duration.innerHTML = getSongDuration(item);
-
-    div_song_meta_data.appendChild(span_title);
-    div_song_meta_data.appendChild(span_artist);
-    div_song_meta_data.appendChild(span_album);
-
-    div_songs_container.appendChild(span_track);
-    div_songs_container.appendChild(div_song_meta_data);
-    div_songs_container.appendChild(span_duration);
-
-    songsNodeElem.appendChild(div_songs_container);
-}
-
-function appendSongToPlaylistInDom(item) {
-    let playlist_index = Amplitude.getSongsInPlaylist(DEFAULT_PLAYLIST).length;
-
-    let div_playlist_song_container = document.createElement("DIV");
-    div_playlist_song_container.className = "song amplitude-paused"
-    div_playlist_song_container.setAttribute("data-amplitude-song-index", playlist_index);
-    div_playlist_song_container.addEventListener("click", function (event) {
-        Amplitude.playPlaylistSongAtIndex(playlist_index, DEFAULT_PLAYLIST);
-
-        setActiveSongInPlaylist(playlist_index);
-
-        let playPauseElem = document.getElementById('play-pause');
-
-        if (Amplitude.getPlayerState() === 'playing') {
-            playPauseElem.className = "amplitude-play-pause amplitude-playing";
-        } else {
-            playPauseElem.className = "amplitude-play-pause amplitude-paused";
-        }
-    });
-
-    let div_now_playing_container = document.createElement("DIV");
-    div_now_playing_container.className = "song-now-playing-icon-container";
-
-    let div_play_button_container = document.createElement("DIV");
-    div_play_button_container.className = "play-button-container";
-
-    let img_now_playing = document.createElement("IMG");
-    img_now_playing.className = "now-playing";
-    img_now_playing.setAttribute("src", "/static/images/now-playing.svg");
-
-    let div_song_meta_data = document.createElement("DIV");
-    div_song_meta_data.className = "song-meta-data";
-
-    let span_track = document.createElement("DIV");
-    span_track.className = "song-track";
-    span_track.innerHTML = playlist_index + 1;
-
-    let span_title = document.createElement("SPAN");
-    span_title.className = "song-title";
-    span_title.innerHTML = item.title;
-
-    let span_artist = document.createElement("SPAN");
-    span_artist.className = "song-artist";
-    span_artist.innerHTML = item.artist;
-
-    let span_album = document.createElement("SPAN");
-    span_album.className = "song-album";
-    span_album.innerHTML = item.album + ' (' + item.original_year + ')';
-
-    let span_duration = document.createElement("SPAN");
-    span_duration.className = "song-duration";
-    span_duration.innerHTML = getSongDuration(item);
-
-    div_song_meta_data.appendChild(span_title);
-    div_song_meta_data.appendChild(span_artist);
-    div_song_meta_data.appendChild(span_album);
-
-    div_now_playing_container.appendChild(div_play_button_container);
-    div_now_playing_container.appendChild(img_now_playing);
-
-    div_playlist_song_container.appendChild(div_now_playing_container);
-    div_playlist_song_container.appendChild(span_track);
-    div_playlist_song_container.appendChild(div_song_meta_data);
-    div_playlist_song_container.appendChild(span_duration);
-    playlistNodeElem.appendChild(div_playlist_song_container);
-}
-
-function setActiveSongInPlaylist(playlist_index) {
-    let elemAct = document.querySelectorAll('#playlist-node-container .song');
-
-    for (let i = 0; i < elemAct.length; i++) {
-        if (playlist_index === i) {
-            elemAct[i].className = "song amplitude-playing"
-        } else {
-            elemAct[i].className = "song amplitude-paused"
-        }
+// Execute a function when the user releases a key on the keyboard
+queryInput.addEventListener("keyup", function (event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.key === 'Enter') {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("queryBtn").click();
     }
-}
+});
 
-function getSongDuration(item) {
-    let minutes = Math.floor(item.length / 60).toString();
-    let seconds = Math.round(item.length - minutes * 60).toString().padStart(2, '0');
+function appendSongToSongsInDom(item, index) {
+    let div_song_tio_add = document.createElement('div');
+    div_song_tio_add.className = 'song-to-add'
+    div_song_tio_add.setAttribute('song-to-add', index);
 
-    return minutes + ':' + seconds;
-}
+    let img = document.createElement('img');
+    img.setAttribute("src", item.cover_art_url);
 
-function clearPlaylist() {
-    let songsFromPlaylist = Amplitude.getSongsInPlaylist(DEFAULT_PLAYLIST);
+    let a_add = document.createElement('a');
+    a_add.className = 'add-to-playlist-button'
+    a_add.setAttribute('song-to-add', index);
+    a_add.innerHTML = 'Add To Playlist';
 
-    while (songsFromPlaylist.length > 0) {
-        Amplitude.removeSongFromPlaylist(0, DEFAULT_PLAYLIST);
-    }
-    playlistNodeElem.innerHTML = "";
-}
+    div_song_tio_add.appendChild(img);
+    div_song_tio_add.appendChild(a_add);
 
-function removeSongs() {
-    while (Amplitude.getSongs().length > 0) {
-        Amplitude.removeSong(0);
-    }
-    songsNodeElem.innerHTML = "";
+    addToPlaylistEvent(div_song_tio_add);
+
+    songsNodeElem.appendChild(div_song_tio_add);
 }

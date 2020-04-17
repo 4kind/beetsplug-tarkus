@@ -1,105 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>AmplitudeJS Testing</title>
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tarkus.css') }}"/>
     <script src="{{ url_for('static', filename='js/amplitude.min.js') }}"></script>
 </head>
 <body>
-<!-- Blue Playlist Container -->
-<div id="blue-playlist-container">
+<div class="example-container">
+    <div class="left">
+        <div id="white-player">
+            <div class="white-player-top">
+                <div>
+                    &nbsp;
+                </div>
 
-    <!-- Amplitude Player -->
-    <div id="amplitude-player">
+                <div class="center">
+                    <span class="now-playing">Now Playing</span>
+                </div>
 
-        <!-- Left Side Player -->
-        <div id="amplitude-left">
-            <img data-amplitude-song-info="cover_art_url" class="album-art"/>
-            <div id="player-left-bottom">
-                <div id="time-container">
-                            <span class="current-time">
-                                <span class="amplitude-current-minutes"></span>:<span
-                                    class="amplitude-current-seconds"></span>
-                            </span>
+                <div>
+                    <img src="{{ url_for('static', filename='images/show-playlist.svg') }}"
+                         class="show-playlist"/>
+                </div>
+            </div>
+
+            <div id="white-player-center">
+                <img data-amplitude-song-info="cover_art_url" class="main-album-art"/>
+
+                <div class="song-meta-data">
+                    <span data-amplitude-song-info="name" class="song-name"></span>
+                    <span data-amplitude-song-info="artist" class="song-artist"></span>
+                </div>
+
+                <div class="time-progress">
                     <div id="progress-container">
-                        <label>
-                            <input type="range" class="amplitude-song-slider"/>
-                        </label>
+                        <input type="range" class="amplitude-song-slider"/>
                         <progress id="song-played-progress" class="amplitude-song-played-progress"></progress>
                         <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
                     </div>
-                    <span class="duration">
-                                <span class="amplitude-duration-minutes"></span>:<span
-                            class="amplitude-duration-seconds"></span>
-                            </span>
+
+                    <div class="time-container">
+                <span class="current-time">
+                  <span class="amplitude-current-minutes"></span>:<span class="amplitude-current-seconds"></span>
+                </span>
+                        <span class="duration">
+                    <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+                  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="white-player-controls">
+                <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+                <div class="amplitude-prev" id="previous"></div>
+                <div class="amplitude-play-pause" id="play-pause"></div>
+                <div class="amplitude-next" id="next"></div>
+                <div class="amplitude-repeat" id="repeat"></div>
+            </div>
+
+            <div id="white-player-playlist-container">
+                <div class="white-player-playlist-top">
+                    <div>
+
+                    </div>
+                    <div>
+                        <span class="queue">Queue</span>
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='images/close.svg') }}"
+                             class="close-playlist"/>
+                    </div>
                 </div>
 
-                <div id="control-container">
-                    <div id="repeat-container">
-                        <div class="amplitude-repeat" id="repeat"></div>
-                        <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
-                    </div>
+                <div class="white-player-up-next">
+                    Up Next
+                </div>
 
-                    <div id="central-control-container">
-                        <div id="central-controls">
-                            <div class="amplitude-prev" id="previous"></div>
-                            <div class="amplitude-play-pause" id="play-pause"></div>
-                            <div class="amplitude-next" id="next"></div>
+                <div class="white-player-playlist">
+                </div>
+
+                <div class="white-player-playlist-controls">
+                    <img data-amplitude-song-info="cover_art_url" class="playlist-album-art"/>
+
+                    <div class="playlist-controls">
+                        <div class="playlist-meta-data">
+                            <span data-amplitude-song-info="name" class="song-name"></span>
+                            <span data-amplitude-song-info="artist" class="song-artist"></span>
+                        </div>
+
+                        <div class="playlist-control-wrapper">
+                            <div class="amplitude-prev" id="playlist-previous"></div>
+                            <div class="amplitude-play-pause" id="playlist-play-pause"></div>
+                            <div class="amplitude-next" id="playlist-next"></div>
                         </div>
                     </div>
-
-                    <div id="volume-container">
-                        <div class="volume-controls">
-                            <div class="amplitude-mute amplitude-not-muted"></div>
-                            <input type="range" class="amplitude-volume-slider"/>
-                            <div class="ms-range-fix"></div>
-                        </div>
-                        <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
-                    </div>
-                </div>
-
-                <div id="meta-container">
-                    <span data-amplitude-song-info="name" class="song-name"></span>
-
-                    <div class="song-artist-album">
-                        <span data-amplitude-song-info="artist"></span>
-                        <span data-amplitude-song-info="album-year"></span>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- End Left Side Player -->
-
-         <!-- Middle Side Player -->
-        <div id="amplitude-middle">
-            <div>
-                <button id="clearPlaylist" onclick="clearPlaylist()">Clear</button>
-            </div>
-            <div id="playlist-node-container">
-            </div>
-        </div>
-        <!-- End Middle Side Player -->
-
-        <!-- Right Side Player -->
-        <div id="amplitude-right">
-            <div>
-                <input type="search" id="query" placeholder="Query">
-                <button id="queryBtn" onclick="requestQuery()">Search</button>
-            </div>
-            <div id="songs-node-container">
-            </div>
-        </div>
-        <!-- End Right Side Player -->
-
-        <!-- End Amplitdue Player -->
     </div>
-
-    <!--
-        Include UX functions JS
-
-        NOTE: These are for handling things outside of the scope of AmplitudeJS
-    -->
-    <script src="{{ url_for('static', filename='js/tarkus.js') }}"></script>
+    <div class="right">
+        <div>
+            <input type="search" id="query" placeholder="Query">
+            <button id="queryBtn">Search</button>
+        </div>
+        <div id="songs-node-container"></div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/tarkus.js') }}"></script>
 </body>
 </html>
-
