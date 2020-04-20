@@ -118,6 +118,28 @@ function createAlbumArt(song, img, row) {
     return img;
 }
 
+function createSongRow(i) {
+    let row = document.createElement('tr');
+    row.className = 'song-to-add';
+    row.setAttribute('song-to-add', i);
+    return row;
+}
+
+function appendTitleToSongRow(song, i, row) {
+    let td_song_title = document.createElement('td');
+
+    let a_add = document.createElement('a');
+    a_add.innerHTML = song.title;
+    a_add.className = 'add-to-playlist-button'
+    a_add.setAttribute('song-to-add', i);
+
+    addToPlaylistEvent(a_add);
+
+    td_song_title.appendChild(a_add);
+
+    row.appendChild(td_song_title);
+}
+
 document.getElementById('queryBtn').addEventListener('click', function () {
     let xhttp = new XMLHttpRequest();
 
@@ -138,9 +160,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
 
                 songsToAdd.push(song);
 
-                let row = document.createElement('tr');
-                row.className = 'song-to-add';
-                row.setAttribute('song-to-add', i);
+                let row = createSongRow(i);
 
                 if (albumId !== item.album_id) {
                     if (i > 0 && img) {
@@ -151,26 +171,17 @@ document.getElementById('queryBtn').addEventListener('click', function () {
                     albumId = item.album_id;
 
                     img = createAlbumArt(song, img, row);
-                } else if (i === (items.length - 1) && img) {
-                    setRowspan(img, countSongs);
+                } else {
+                    let isLastSong = i === (items.length - 1);
+                    if (isLastSong && img) {
+                        setRowspan(img, countSongs);
+                    }
                 }
 
-                countSongs++;
-
-                let td_song_title = document.createElement('td');
-
-                let a_add = document.createElement('a');
-                a_add.innerHTML = song.title;
-                a_add.className = 'add-to-playlist-button'
-                a_add.setAttribute('song-to-add', i);
-
-                addToPlaylistEvent(a_add);
-
-                td_song_title.appendChild(a_add);
-
-                row.appendChild(td_song_title);
-
+                appendTitleToSongRow(song, i, row);
                 songsNodeElem.appendChild(row);
+
+                countSongs++;
             }
         }
     };
@@ -204,7 +215,6 @@ function setRowspan(img, rowspan) {
 
 // Execute a function when the user releases a key on the keyboard
 queryInput.addEventListener("keyup", function (event) {
-    // Number 13 is the "Enter" key on the keyboard
     if (event.key === 'Enter') {
         // Cancel the default action, if needed
         event.preventDefault();
