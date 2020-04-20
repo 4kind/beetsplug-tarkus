@@ -103,6 +103,21 @@ function appendToSongDisplay(song, index) {
     playlistElement.appendChild(playlistSong);
 }
 
+function createAlbumArt(song, img, row) {
+    let querySongArtistAlbum = document.createElement('span');
+    querySongArtistAlbum.setAttribute('class', 'query-song-artist');
+    querySongArtistAlbum.innerHTML = song.artist + ' &bull; ' + song.album;
+
+    let td_image = document.createElement('td');
+
+    img = document.createElement('img');
+    img.setAttribute("src", song.cover_art_url);
+    td_image.appendChild(img);
+    td_image.appendChild(querySongArtistAlbum);
+    row.appendChild(td_image);
+    return img;
+}
+
 document.getElementById('queryBtn').addEventListener('click', function () {
     let xhttp = new XMLHttpRequest();
 
@@ -110,7 +125,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
         if (this.readyState === 4 && this.status === 200) {
             let response = JSON.parse(this.responseText)
             let items = response.items;
-
+            songsToAdd = [];
             document.getElementById('songs-node-container').innerHTML = '';
 
             let albumId = null;
@@ -119,24 +134,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
 
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
-
-                let song = {
-                    "track": item.track,
-                    "title": item.title,
-                    "length": item.length,
-                    "original_year": item.original_year,
-                    "name": item.title,
-                    "artist": item.artist,
-                    "mb_artistid": item.mb_artistid,
-                    "mb_albumid": item.mb_albumid,
-                    "mb_albumartistid": item.mb_albumartistid,
-                    "albumartist": item.albumartist,
-                    "year": item.year,
-                    "album": item.album,
-                    "album-year": item.album + ' (' + item.original_year + ')',
-                    "url": "/item/" + item.id + "/file",
-                    "cover_art_url": "/album/" + item.album_id + "/art"
-                };
+                let song = createSong(item);
 
                 songsToAdd.push(song);
 
@@ -152,12 +150,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
 
                     albumId = item.album_id;
 
-                    let td_image = document.createElement('td');
-
-                    img = document.createElement('img');
-                    img.setAttribute("src", song.cover_art_url);
-                    td_image.appendChild(img);
-                    row.appendChild(td_image);
+                    img = createAlbumArt(song, img, row);
                 } else if (i === (items.length - 1) && img) {
                     setRowspan(img, countSongs);
                 }
@@ -167,7 +160,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
                 let td_song_title = document.createElement('td');
 
                 let a_add = document.createElement('a');
-                a_add.innerHTML = item.title;
+                a_add.innerHTML = song.title;
                 a_add.className = 'add-to-playlist-button'
                 a_add.setAttribute('song-to-add', i);
 
@@ -184,6 +177,26 @@ document.getElementById('queryBtn').addEventListener('click', function () {
     xhttp.open("GET", "/item/query/" + queryInput.value, true);
     xhttp.send();
 });
+
+function createSong(item) {
+    return {
+        "track": item.track,
+        "title": item.title,
+        "length": item.length,
+        "original_year": item.original_year,
+        "name": item.title,
+        "artist": item.artist,
+        "mb_artistid": item.mb_artistid,
+        "mb_albumid": item.mb_albumid,
+        "mb_albumartistid": item.mb_albumartistid,
+        "albumartist": item.albumartist,
+        "year": item.year,
+        "album": item.album,
+        "album_id": item.album_id,
+        "url": "/item/" + item.id + "/file",
+        "cover_art_url": "/album/" + item.album_id + "/art"
+    }
+}
 
 function setRowspan(img, rowspan) {
     img.parentElement.setAttribute('rowspan', rowspan);
