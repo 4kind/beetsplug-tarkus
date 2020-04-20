@@ -120,24 +120,34 @@ let QueryListBuilder = class {
      */
     addAlbumToQueryContainer = function (song) {
         let albumElem = document.createElement('div');
-        albumElem.className = 'album-to-add'
+        albumElem.setAttribute('class', 'album-to-add');
         albumElem.setAttribute('album-to-add', song.album_id);
 
         let albumArtContainer = document.createElement('div');
-        albumArtContainer.className = 'album-art';
+        albumArtContainer.setAttribute('class', 'album-art');
 
-        let querySongArtistAlbumElem = document.createElement('div');
-        querySongArtistAlbumElem.setAttribute('class', 'query-song-artist');
-        querySongArtistAlbumElem.innerHTML = song.artist + ' &bull; ' + song.album;
+        let albumArtArtistElem = document.createElement('div');
+        albumArtArtistElem.setAttribute('class', 'album-artist');
+        albumArtArtistElem.innerHTML = song.albumartist;
+
+        let albumArtAlbumElem = document.createElement('div');
+        albumArtAlbumElem.setAttribute('class', 'album-album');
+        albumArtAlbumElem.innerHTML = song.album;
+
+        let albumArtYearElem = document.createElement('div');
+        albumArtYearElem.setAttribute('class', 'album-year');
+        albumArtYearElem.innerHTML = song.original_year;
 
         let imgElem = document.createElement('img');
         imgElem.setAttribute('src', song.cover_art_url);
 
         albumArtContainer.appendChild(imgElem);
-        albumArtContainer.appendChild(querySongArtistAlbumElem);
+        albumArtContainer.appendChild(albumArtArtistElem);
+        albumArtContainer.appendChild(albumArtAlbumElem);
+        albumArtContainer.appendChild(albumArtYearElem);
 
         this.albumSongsContainer = document.createElement('div');
-        this.albumSongsContainer.className = 'album-songs';
+        this.albumSongsContainer.setAttribute('class', 'album-songs');
 
         albumElem.appendChild(albumArtContainer);
         albumElem.appendChild(this.albumSongsContainer);
@@ -155,14 +165,29 @@ let QueryListBuilder = class {
         let self = this;
 
         let addSongToPlaylistElem = document.createElement('a');
-        addSongToPlaylistElem.innerHTML = song.title;
-        addSongToPlaylistElem.className = 'add-to-playlist-button'
+        addSongToPlaylistElem.setAttribute('class', 'add-to-playlist-button');
         addSongToPlaylistElem.setAttribute('song-to-add', index.toString());
 
-        self.createAddSongToPlaylistEvent(addSongToPlaylistElem);
+        let songTrack = document.createElement('span');
+        songTrack.setAttribute('class', 'song-track');
+        songTrack.innerHTML = song.track + '.';
+
+        let songName = document.createElement('span');
+        songName.setAttribute('class', 'song-name');
+        songName.innerHTML = song.name;
+
+        let songLength = document.createElement('span');
+        songLength.setAttribute('class', 'song-length');
+        songLength.innerHTML = self.getSongLengthFormatted(song.length);
+
+        addSongToPlaylistElem.appendChild(songTrack);
+        addSongToPlaylistElem.appendChild(songName);
+        addSongToPlaylistElem.appendChild(songLength);
+
+        self.addSongToPlaylistEvent(addSongToPlaylistElem);
 
         let songElem = document.createElement('div');
-        songElem.className = 'song-to-add';
+        songElem.setAttribute('class', 'song-to-add');
 
         songElem.appendChild(addSongToPlaylistElem);
 
@@ -170,11 +195,22 @@ let QueryListBuilder = class {
     }
 
     /**
+     * Get formatted track length in mm:ss
+     *
+     * @param {Number} songLength
+     *
+     * @returns {string}
+     */
+    getSongLengthFormatted = function (songLength) {
+        return new Date(1000 * songLength).toISOString().substr(14, 5);
+    }
+
+    /**
      * Click event to add song to the playlist
      *
      * @param {Element} element
      */
-    createAddSongToPlaylistEvent = function (element) {
+    addSongToPlaylistEvent = function (element) {
         let self = this;
 
         element.addEventListener('click', function () {

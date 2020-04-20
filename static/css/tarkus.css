@@ -537,7 +537,7 @@ div.white-player-playlist-controls {
 
 div.white-player-playlist-controls img.playlist-album-art {
     float: left;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     height: 64px;
     width: 64px;
@@ -625,15 +625,36 @@ div.white-player-playlist-controls::after {
     clear: both;
 }
 
+div.album-to-add {
+    float: left;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: white;
+}
+
 div.album-to-add .album-art {
     width: 30%;
     float: left;
 }
 
-div.album-to-add .album-songs {
-    border-radius: 6px;
-    width: 70%;
-    float: left;
+div.album-to-add .album-art .album-artist {
+    color: #414344;
+}
+
+div.album-to-add .album-art .album-year {
+    color: #AAAFB3;
+}
+
+div.album-to-add .album-art > div {
+    margin-left: 10px;
+}
+
+div.album-to-add .album-art div {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 div.album-to-add .album-art img {
@@ -641,16 +662,42 @@ div.album-to-add .album-art img {
     width: 100%;
 }
 
+div.album-to-add .album-songs {
+    width: calc(70% - 10px);
+    float: left;
+    margin: 5px;
+}
+
 div.song-to-add a.add-to-playlist-button {
-    background-color: white;
     color: #CC5CAD;
-    border-radius: 6px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px;
     display: block;
-    margin: 0 auto 10px;
-    font-weight: bold;
+    margin: 0 auto;
     cursor: pointer;
+}
+
+div.song-to-add a.add-to-playlist-button span {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+div.song-to-add a.add-to-playlist-button span.song-track {
+    width: 20px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+div.song-to-add a.add-to-playlist-button span.song-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 70px);
+    margin-right: 5px;
+}
+
+div.song-to-add a.add-to-playlist-button span.song-length {
+    width: 40px;
+    text-align: right;
 }
 
 /*
@@ -676,24 +723,22 @@ body div.example-container div.right {
     width: 50%;
 }
 
-#songs-node-container {
-    margin-top: 22px;
-}
-
 #query-container {
     margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
-    /*max-width: 375px;*/
+    width: 100%;
     float: left;
 }
 
 input#query {
-    width: 70%;
+    width: calc(70% - 10px);
+    margin-right: 10px;
 }
 
 button#queryBtn {
-    width: 28%;
+    width: 30%;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 39.9375em) {
