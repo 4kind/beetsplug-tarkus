@@ -147,12 +147,12 @@ document.getElementById('queryBtn').addEventListener('click', function () {
         if (this.readyState === 4 && this.status === 200) {
             let response = JSON.parse(this.responseText)
             let items = response.items;
-            songsToAdd = [];
-            document.getElementById('songs-node-container').innerHTML = '';
-
             let albumId = null;
             let countSongs = 0;
             let img = null;
+
+            songsToAdd = [];
+            document.getElementById('songs-node-container').innerHTML = '';
 
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
@@ -169,7 +169,6 @@ document.getElementById('queryBtn').addEventListener('click', function () {
                     }
 
                     albumId = item.album_id;
-
                     img = createAlbumArt(song, img, row);
                 } else {
                     let isLastSong = i === (items.length - 1);
