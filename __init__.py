@@ -51,7 +51,7 @@ def item_query(queries):
     if "+ " or "- " not in queries:
         if queries is None:
             queries = ""
-        queries += " albumartist+ year+ track+"
+        queries += " albumartist+ year+ album_id+ track+"
 
     items = []
     res = g.lib.items(queries)

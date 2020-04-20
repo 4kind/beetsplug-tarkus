@@ -638,19 +638,19 @@ div.white-player-playlist-controls::after {
     clear: both;
 }
 
-div.song-to-add {
+tr.song-to-add td {
     width: 45%;
     padding: 10px;
     max-width: 250px;
+    vertical-align: top;
 }
 
-div.song-to-add img {
+tr.song-to-add img {
     border-radius: 6px;
-    margin-top: 50px;
     width: 100%;
 }
 
-div.song-to-add a.add-to-playlist-button {
+tr.song-to-add a.add-to-playlist-button {
     background-color: white;
     color: #CC5CAD;
     box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
@@ -668,7 +668,7 @@ div.song-to-add a.add-to-playlist-button {
 
 /*Medium only*/
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
-    div.song-to-add {
+    tr.song-to-add td {
         width: 40%;
         padding: 5px;
     }

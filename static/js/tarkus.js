@@ -113,6 +113,10 @@ document.getElementById('queryBtn').addEventListener('click', function () {
 
             document.getElementById('songs-node-container').innerHTML = '';
 
+            let albumId = null;
+            let countSongs = 0;
+            let img = null;
+
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
 
@@ -136,13 +140,54 @@ document.getElementById('queryBtn').addEventListener('click', function () {
 
                 songsToAdd.push(song);
 
-                appendSongToSongsInDom(song, i);
+                let row = document.createElement('tr');
+                row.className = 'song-to-add';
+                row.setAttribute('song-to-add', i);
+
+                if (albumId !== item.album_id) {
+                    if (i > 0 && img) {
+                        setRowspan(img, countSongs);
+                        countSongs = 1;
+                    }
+
+                    albumId = item.album_id;
+
+                    let td_image = document.createElement('td');
+
+                    img = document.createElement('img');
+                    img.setAttribute("src", song.cover_art_url);
+                    td_image.appendChild(img);
+                    row.appendChild(td_image);
+                } else if (i === (items.length - 1) && img) {
+                    setRowspan(img, countSongs);
+                }
+
+                countSongs++;
+
+                let td_song_title = document.createElement('td');
+
+                let a_add = document.createElement('a');
+                a_add.innerHTML = item.title;
+                a_add.className = 'add-to-playlist-button'
+                a_add.setAttribute('song-to-add', i);
+
+                addToPlaylistEvent(a_add);
+
+                td_song_title.appendChild(a_add);
+
+                row.appendChild(td_song_title);
+
+                songsNodeElem.appendChild(row);
             }
         }
     };
     xhttp.open("GET", "/item/query/" + queryInput.value, true);
     xhttp.send();
 });
+
+function setRowspan(img, rowspan) {
+    img.parentElement.setAttribute('rowspan', rowspan);
+}
 
 // Execute a function when the user releases a key on the keyboard
 queryInput.addEventListener("keyup", function (event) {
@@ -154,24 +199,3 @@ queryInput.addEventListener("keyup", function (event) {
         document.getElementById("queryBtn").click();
     }
 });
-
-function appendSongToSongsInDom(item, index) {
-    let div_song_tio_add = document.createElement('div');
-    div_song_tio_add.className = 'song-to-add'
-    div_song_tio_add.setAttribute('song-to-add', index);
-
-    let img = document.createElement('img');
-    img.setAttribute("src", item.cover_art_url);
-
-    let a_add = document.createElement('a');
-    a_add.className = 'add-to-playlist-button'
-    a_add.setAttribute('song-to-add', index);
-    a_add.innerHTML = 'Add To Playlist';
-
-    div_song_tio_add.appendChild(img);
-    div_song_tio_add.appendChild(a_add);
-
-    addToPlaylistEvent(div_song_tio_add);
-
-    songsNodeElem.appendChild(div_song_tio_add);
-}
