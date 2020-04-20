@@ -1,14 +1,8 @@
-/*
-  1. Base
-*/
-/*
-  2. Components
-*/
 div#white-player {
     width: 100%;
     max-width: 375px;
     background-color: #FFFFFF;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 8px;
     font-family: "Lato", sans-serif;
     margin-left: auto;
@@ -47,11 +41,9 @@ div.white-player-top img.show-playlist {
 
 div#white-player-center img.main-album-art {
     display: block;
-    margin: auto;
-    margin-top: 16px;
-    margin-bottom: 50px;
+    margin: 16px auto 50px;
     border-radius: 8px;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     width: 280px;
     height: 280px;
 }
@@ -107,7 +99,6 @@ div#white-player-center div.time-progress div#progress-container progress#song-p
     left: 0;
     top: 8px;
     right: 0;
-    width: 100%;
     z-index: 60;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -145,9 +136,8 @@ div#white-player-center div.time-progress div#progress-container progress#song-p
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-played-progress::-moz-progress-bar {
-    background: none;
     border-radius: 5px;
-    background-color: #FA6733;
+    background: #FA6733 none;
     height: 5px;
     margin-top: -2px;
 }
@@ -164,9 +154,8 @@ div#white-player-center div.time-progress div#progress-container progress#song-b
     appearance: none;
     height: 4px;
     border-radius: 5px;
-    background: transparent;
     border: none;
-    background-color: #D7DEE3;
+    background: #D7DEE3;
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress[value]::-webkit-progress-bar {
@@ -181,9 +170,8 @@ div#white-player-center div.time-progress div#progress-container progress#song-b
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress::-moz-progress-bar {
-    background: none;
     border-radius: 5px;
-    background-color: #E1E1E1;
+    background: #E1E1E1 none;
     height: 5px;
     margin-top: -2px;
 }
@@ -216,7 +204,7 @@ div#white-player-center div.time-progress div#progress-container progress::-ms-f
 div#white-player-center div.time-progress div#progress-container input[type=range] {
     -webkit-appearance: none;
     width: 100%;
-    margin: 7.5px 0;
+    margin: 8px 0;
     position: absolute;
     z-index: 9999;
     top: -7px;
@@ -231,16 +219,16 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 0px;
+    height: 0;
     cursor: pointer;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
     background: #FA6733;
-    border-radius: 0px;
-    border: 0px solid #010101;
+    border-radius: 0;
+    border: 0 solid #010101;
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    box-shadow: 0 0 0 #000000, 0 0 0 #0d0d0d;
     border: 1px solid #FA6733;
     height: 15px;
     width: 15px;
@@ -257,16 +245,16 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-moz-range-track {
     width: 100%;
-    height: 0px;
+    height: 0;
     cursor: pointer;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
     background: #FA6733;
-    border-radius: 0px;
-    border: 0px solid #010101;
+    border-radius: 0;
+    border: 0 solid #010101;
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-moz-range-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    box-shadow: 0 0 0 #000000, 0 0 0 #0d0d0d;
     border: 1px solid #FA6733;
     height: 15px;
     width: 15px;
@@ -277,7 +265,7 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-track {
     width: 100%;
-    height: 0px;
+    height: 0;
     cursor: pointer;
     background: transparent;
     border-color: transparent;
@@ -286,33 +274,32 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-fill-lower {
     background: #003d57;
-    border: 0px solid #010101;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    border: 0 solid #010101;
+    border-radius: 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-fill-upper {
     background: #FA6733;
-    border: 0px solid #010101;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    border: 0 solid #010101;
+    border-radius: 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    box-shadow: 0 0 0 #000000, 0 0 0 #0d0d0d;
     border: 1px solid #FA6733;
-    height: 15px;
     width: 15px;
     border-radius: 16px;
     background: #FA6733;
     cursor: pointer;
-    height: 0px;
+    height: 0;
     display: none;
 }
 
 @media all and (-ms-high-contrast: none) {
     div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type="range"].amplitude-song-slider {
-        padding: 0px;
+        padding: 0;
     }
 
     div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-thumb {
@@ -638,40 +625,32 @@ div.white-player-playlist-controls::after {
     clear: both;
 }
 
-tr.song-to-add td {
-    width: 45%;
-    padding: 10px;
-    max-width: 250px;
-    vertical-align: top;
+div.album-to-add .album-art {
+    width: 30%;
+    float: left;
 }
 
-tr.song-to-add img {
+div.album-to-add .album-songs {
+    border-radius: 6px;
+    width: 70%;
+    float: left;
+}
+
+div.album-to-add .album-art img {
     border-radius: 6px;
     width: 100%;
 }
 
-tr.song-to-add a.add-to-playlist-button {
+div.song-to-add a.add-to-playlist-button {
     background-color: white;
     color: #CC5CAD;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
-    text-align: center;
-    max-width: 150px;
     border-radius: 6px;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin: auto;
     display: block;
-    margin-top: 10px;
+    margin: 0 auto 10px;
     font-weight: bold;
     cursor: pointer;
-}
-
-/*Medium only*/
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
-    tr.song-to-add td {
-        width: 40%;
-        padding: 5px;
-    }
 }
 
 /*
@@ -695,8 +674,26 @@ body div.example-container div.left {
 
 body div.example-container div.right {
     width: 50%;
-    display: flex;
-    flex-wrap: wrap;
+}
+
+#songs-node-container {
+    margin-top: 22px;
+}
+
+#query-container {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    /*max-width: 375px;*/
+    float: left;
+}
+
+input#query {
+    width: 70%;
+}
+
+button#queryBtn {
+    width: 28%;
 }
 
 @media screen and (max-width: 39.9375em) {
@@ -713,122 +710,8 @@ body div.example-container div.right {
     }
 }
 
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+@media screen and (min-width: 40em) {
     body div.right {
-        padding-left: 20px;
+        padding-right: 20px;
     }
-}
-
-/*
-  4. Pages
-*/
-/*
-  5. Themes
-*/
-/*
-  6. Utils
-*/
-/*
-  7. Vendors
-*/
-/*
-  8. Animations
-*/
-.slide-in-top {
-    -webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2019-3-25 18:39:54
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-/**
- * ----------------------------------------
- * animation slide-in-top
- * ----------------------------------------
- */
-@-webkit-keyframes slide-in-top {
-    0% {
-        -webkit-transform: translateY(-10px);
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slide-in-top {
-    0% {
-        -webkit-transform: translateY(-10px);
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.slide-out-top {
-    -webkit-animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-    animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2019-3-25 18:45:17
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-/**
- * ----------------------------------------
- * animation slide-out-top
- * ----------------------------------------
- */
-@-webkit-keyframes slide-out-top {
-    0% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translateY(-10px);
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-}
-
-@keyframes slide-out-top {
-    0% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translateY(-10px);
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-}
-
-/*# sourceMappingURL=app.css.map */
-
-a.more-on-ssu {
-    background-color: white;
-    color: #CC5CAD;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
-    text-align: center;
-    max-width: 300px;
-    border-radius: 6px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: auto;
-    display: block;
-    margin-top: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
 }

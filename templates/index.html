@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AmplitudeJS Testing</title>
+    <title>Beets WebUI</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tarkus.css') }}"/>
     <script src="{{ url_for('static', filename='js/amplitude.min.js') }}"></script>
@@ -100,11 +100,13 @@
         </div>
     </div>
     <div class="right">
-        <div>
-            <input type="search" id="query" placeholder="Query">
-            <button id="queryBtn">Search</button>
+        <div id="query-container">
+            <div>
+                <input type="search" id="query" placeholder="Query">
+                <button id="queryBtn">Search</button>
+            </div>
+            <div id="songs-node-container"></div>
         </div>
-        <table id="songs-node-container"></table>
     </div>
 </div>
 <script src="{{ url_for('static', filename='js/tarkus.js') }}"></script>
