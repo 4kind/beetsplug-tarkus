@@ -85,7 +85,7 @@ let QueryListBuilder = class {
      * @param {Song} song
      * @param {Number} index
      */
-    buildIt = function (song, index) {
+    buildSongListGroupedByAlbum = function (song, index) {
         let self = this;
         let albumChanged = this.albumId !== song.album_id;
 
@@ -115,6 +115,8 @@ let QueryListBuilder = class {
         let albumArtContainer = document.createElement('div');
         albumArtContainer.setAttribute('class', 'album-art');
 
+        let albumMetaData = document.createElement('div');
+
         let albumArtArtistElem = document.createElement('div');
         albumArtArtistElem.setAttribute('class', 'album-artist');
         albumArtArtistElem.innerHTML = song.albumartist;
@@ -133,10 +135,12 @@ let QueryListBuilder = class {
 
         self.addAlbumToPlaylistEvent(imgElem);
 
+        albumMetaData.appendChild(albumArtArtistElem);
+        albumMetaData.appendChild(albumArtAlbumElem);
+        albumMetaData.appendChild(albumArtYearElem);
+
         albumArtContainer.appendChild(imgElem);
-        albumArtContainer.appendChild(albumArtArtistElem);
-        albumArtContainer.appendChild(albumArtAlbumElem);
-        albumArtContainer.appendChild(albumArtYearElem);
+        albumArtContainer.appendChild(albumMetaData);
 
         this.albumSongsContainer = document.createElement('div');
         this.albumSongsContainer.setAttribute('class', 'album-songs');
@@ -276,7 +280,7 @@ let QueryListBuilder = class {
                     }
 
                     if (true === buildHtmlDom) {
-                        self.buildIt(song, index);
+                        self.buildSongListGroupedByAlbum(song, index);
                     } else {
                         self.addSongToPlaylist(index);
                     }
@@ -332,4 +336,4 @@ let QueryListBuilder = class {
         // Appends the song element to the playlist
         playlistElement.appendChild(playlistSong);
     }
-};
+}

@@ -536,7 +536,7 @@ div.white-player-playlist-controls {
 }
 
 div.white-player-playlist-controls img.playlist-album-art {
-    float: left;
+    /*float: left;*/
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     height: 64px;
@@ -634,7 +634,7 @@ div.album-to-add {
 }
 
 div.album-to-add .album-art {
-    width: 30%;
+    width: 100%;
     float: left;
 }
 
@@ -647,10 +647,12 @@ div.album-to-add .album-art .album-year {
 }
 
 div.album-to-add .album-art > div {
-    margin-left: 10px;
+    padding: 10px;
+    width: calc(70% - 20px);
+    float: left;
 }
 
-div.album-to-add .album-art div {
+div.album-to-add .album-art div div {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -660,12 +662,13 @@ div.album-to-add .album-art div {
 
 div.album-to-add .album-art img {
     border-radius: 6px;
-    width: 100%;
+    width: 30%;
     cursor: pointer;
+    float: left;
 }
 
 div.album-to-add .album-songs {
-    width: calc(70% - 10px);
+    width: calc(100% - 10px);
     float: left;
     margin: 5px;
 }
@@ -680,7 +683,7 @@ div.song-to-add a.add-to-playlist-button {
 
 div.song-to-add a.add-to-playlist-button span {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: top;
 }
 
 div.song-to-add a.add-to-playlist-button span.song-track {
@@ -690,9 +693,6 @@ div.song-to-add a.add-to-playlist-button span.song-track {
 }
 
 div.song-to-add a.add-to-playlist-button span.song-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     width: calc(100% - 70px);
     margin-right: 5px;
 }
