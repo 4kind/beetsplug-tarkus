@@ -26,23 +26,9 @@ let queryInput = document.getElementById("query");
  * Execute Beets Query
  */
 document.getElementById('queryBtn').addEventListener('click', function () {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            let response = JSON.parse(this.responseText)
-            let items = response.items;
-            let queryListBuilder = new QueryListBuilder();
+    let queryListBuilder = new QueryListBuilder();
 
-            for (let i = 0; i < items.length; i++) {
-                let item = items[i];
-                let song = new Song(item);
-
-                queryListBuilder.buildIt(song, i);
-            }
-        }
-    };
-    xhttp.open('GET', '/item/query/' + queryInput.value, true);
-    xhttp.send();
+    queryListBuilder.executeBeetsQuery(queryInput.value, true);
 });
 
 /**
@@ -59,6 +45,7 @@ queryInput.addEventListener('keyup', function (event) {
 
 let Song = class {
     constructor(item) {
+        this.id = item.id;
         this.track = item.track;
         this.title = item.title;
         this.length = item.length;
@@ -109,7 +96,6 @@ let QueryListBuilder = class {
             self.addSongToAlbumContainer(song, index);
         }
 
-        this.songsToAdd.push(song);
         this.albumId = song.album_id;
     }
 
@@ -119,6 +105,8 @@ let QueryListBuilder = class {
      * @param {Song} song
      */
     addAlbumToQueryContainer = function (song) {
+        let self = this;
+
         let albumElem = document.createElement('div');
         albumElem.setAttribute('class', 'album-to-add');
         albumElem.setAttribute('album-to-add', song.album_id);
@@ -140,6 +128,9 @@ let QueryListBuilder = class {
 
         let imgElem = document.createElement('img');
         imgElem.setAttribute('src', song.cover_art_url);
+        imgElem.setAttribute('album-to-add', song.album_id);
+
+        self.addAlbumToPlaylistEvent(imgElem);
 
         albumArtContainer.appendChild(imgElem);
         albumArtContainer.appendChild(albumArtArtistElem);
@@ -214,21 +205,85 @@ let QueryListBuilder = class {
         let self = this;
 
         element.addEventListener('click', function () {
-            /*
-              Adds the song to Amplitude, appends the song to the display,
-              then rebinds all of the AmplitudeJS elements.
-            */
             let songToAddIndex = this.getAttribute('song-to-add');
-            let newIndex = Amplitude.addSong(self.songsToAdd[songToAddIndex]);
 
-            self.appendToSongDisplay(self.songsToAdd[songToAddIndex], newIndex);
-            Amplitude.bindNewElements();
-
-            const isFirstSong = Amplitude.getSongs().length === 1;
-            if (isFirstSong) {
-                self.next.click();
-            }
+            self.addSongToPlaylist(songToAddIndex);
         });
+    }
+
+    /**
+     * Click event to add album to the playlist
+     *
+     * @param {Element} element
+     */
+    addAlbumToPlaylistEvent = function (element) {
+        let self = this;
+
+        element.addEventListener('click', function () {
+            let albumId = element.getAttribute('album-to-add');
+            let query = 'album_id:' + albumId;
+            self.executeBeetsQuery(query);
+        });
+    }
+
+    /**
+     * Add song by index to playlist
+     *
+     * @param {Number} songToAddIndex
+     */
+    addSongToPlaylist(songToAddIndex) {
+        let self = this;
+
+        /*
+         Adds the song to Amplitude, appends the song to the display,
+         then rebinds all of the AmplitudeJS elements.
+        */
+        let newIndex = Amplitude.addSong(self.songsToAdd[songToAddIndex]);
+
+        self.appendToSongDisplay(self.songsToAdd[songToAddIndex], newIndex);
+        Amplitude.bindNewElements();
+
+        const isFirstSong = Amplitude.getSongs().length === 1;
+        if (isFirstSong) {
+            self.next.click();
+        }
+    }
+
+    /**
+     * Execute async beets request
+     *
+     * @param {String} query
+     * @param {Boolean} buildHtmlDom
+     */
+    executeBeetsQuery = function (query, buildHtmlDom = false) {
+        let xhttp = new XMLHttpRequest();
+        let self = this;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = JSON.parse(this.responseText)
+                let items = response.items;
+                let songs = Amplitude.getSongs();
+
+                for (let i = 0; i < items.length; i++) {
+                    let song = new Song(items[i]);
+
+                    // add only songs that dont exist yet in Amplitude
+                    let index = songs.findIndex(x => x.id === song.id);
+                    if (index < 0) {
+                        self.songsToAdd.push(song);
+                        index = songs.length;
+                    }
+
+                    if (true === buildHtmlDom) {
+                        self.buildIt(song, index);
+                    } else {
+                        self.addSongToPlaylist(index);
+                    }
+                }
+            }
+        };
+        xhttp.open('GET', '/item/query/' + query, true);
+        xhttp.send();
     }
 
     /**
