@@ -7,7 +7,6 @@ div#white-player {
     font-family: "Lato", sans-serif;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
     position: relative;
 }
 
@@ -726,7 +725,6 @@ body div.example-container div.right {
 }
 
 #query-container {
-    margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
     width: 100%;
