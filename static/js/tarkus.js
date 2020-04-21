@@ -31,6 +31,7 @@ document.getElementById('queryBtn').addEventListener('click', function () {
     queryListBuilder.executeBeetsQuery(queryInput.value, true);
 });
 
+
 /**
  * Execute query when pressing "Enter" on the keyboard
  */
@@ -262,7 +263,7 @@ let QueryListBuilder = class {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText)
                 let items = response.items;
-                let songs = Amplitude.getSongs();
+                let songs = self.songsToAdd;
 
                 for (let i = 0; i < items.length; i++) {
                     let song = new Song(items[i]);

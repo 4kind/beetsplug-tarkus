@@ -630,6 +630,7 @@ div.album-to-add {
     margin-top: 10px;
     border-radius: 6px;
     background-color: white;
+    width: 100%;
 }
 
 div.album-to-add .album-art {
@@ -660,6 +661,7 @@ div.album-to-add .album-art div {
 div.album-to-add .album-art img {
     border-radius: 6px;
     width: 100%;
+    cursor: pointer;
 }
 
 div.album-to-add .album-songs {
