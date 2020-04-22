@@ -1,5 +1,7 @@
 const clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
 
+alert(clickTouch);
+
 Amplitude.init({
     'songs': []
 });
@@ -11,7 +13,7 @@ document.getElementsByClassName('show-playlist')[0].addEventListener(clickTouch,
     document.getElementById('white-player-playlist-container').classList.remove('slide-out-top');
     document.getElementById('white-player-playlist-container').classList.add('slide-in-top');
     document.getElementById('white-player-playlist-container').style.display = 'block';
-});
+}, false);
 
 /**
  * Hide the playlist
@@ -20,7 +22,7 @@ document.getElementsByClassName('close-playlist')[0].addEventListener(clickTouch
     document.getElementById('white-player-playlist-container').classList.remove('slide-in-top');
     document.getElementById('white-player-playlist-container').classList.add('slide-out-top');
     document.getElementById('white-player-playlist-container').style.display = 'none';
-});
+}, false);
 
 let queryInput = document.getElementById("query");
 
@@ -31,7 +33,7 @@ document.getElementById('queryBtn').addEventListener(clickTouch, function () {
     let queryListBuilder = new QueryListBuilder();
 
     queryListBuilder.executeBeetsQuery(queryInput.value, true);
-});
+}, false);
 
 
 /**
@@ -44,7 +46,7 @@ queryInput.addEventListener('keyup', function (event) {
         // Trigger the button element with a click
         document.getElementById('queryBtn').click();
     }
-});
+}, false);
 
 let Song = class {
     constructor(item) {
@@ -215,7 +217,7 @@ let QueryListBuilder = class {
             let songToAddIndex = this.getAttribute('song-to-add');
 
             self.addSongToPlaylist(songToAddIndex);
-        });
+        }, false);
     }
 
     /**
@@ -230,7 +232,7 @@ let QueryListBuilder = class {
             let albumId = element.getAttribute('album-to-add');
             let query = 'album_id:' + albumId;
             self.executeBeetsQuery(query);
-        });
+        }, false);
     }
 
     /**
