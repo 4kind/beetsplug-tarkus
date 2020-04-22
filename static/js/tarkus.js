@@ -1,6 +1,8 @@
 const clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
 
-alert(clickTouch);
+alt = function () {
+    alert('test');
+}
 
 Amplitude.init({
     'songs': []
@@ -29,11 +31,11 @@ let queryInput = document.getElementById("query");
 /**
  * Execute Beets Query
  */
-document.getElementById('queryBtn').addEventListener(clickTouch, function () {
-    let queryListBuilder = new QueryListBuilder();
-
-    queryListBuilder.executeBeetsQuery(queryInput.value, true);
-}, false);
+// document.getElementById('queryBtn').addEventListener(clickTouch, function () {
+//     let queryListBuilder = new QueryListBuilder();
+//
+//     queryListBuilder.executeBeetsQuery(queryInput.value, true);
+// }, false);
 
 
 /**
