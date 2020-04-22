@@ -1,3 +1,5 @@
+const clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
+
 Amplitude.init({
     'songs': []
 });
@@ -5,7 +7,7 @@ Amplitude.init({
 /**
  * Shows the playlist
  */
-document.getElementsByClassName('show-playlist')[0].addEventListener('click', function () {
+document.getElementsByClassName('show-playlist')[0].addEventListener(clickTouch, function () {
     document.getElementById('white-player-playlist-container').classList.remove('slide-out-top');
     document.getElementById('white-player-playlist-container').classList.add('slide-in-top');
     document.getElementById('white-player-playlist-container').style.display = 'block';
@@ -14,7 +16,7 @@ document.getElementsByClassName('show-playlist')[0].addEventListener('click', fu
 /**
  * Hide the playlist
  */
-document.getElementsByClassName('close-playlist')[0].addEventListener('click', function () {
+document.getElementsByClassName('close-playlist')[0].addEventListener(clickTouch, function () {
     document.getElementById('white-player-playlist-container').classList.remove('slide-in-top');
     document.getElementById('white-player-playlist-container').classList.add('slide-out-top');
     document.getElementById('white-player-playlist-container').style.display = 'none';
@@ -25,7 +27,7 @@ let queryInput = document.getElementById("query");
 /**
  * Execute Beets Query
  */
-document.getElementById('queryBtn').addEventListener('click', function () {
+document.getElementById('queryBtn').addEventListener(clickTouch, function () {
     let queryListBuilder = new QueryListBuilder();
 
     queryListBuilder.executeBeetsQuery(queryInput.value, true);
@@ -209,7 +211,7 @@ let QueryListBuilder = class {
     addSongToPlaylistEvent = function (element) {
         let self = this;
 
-        element.addEventListener('click', function () {
+        element.addEventListener(clickTouch, function () {
             let songToAddIndex = this.getAttribute('song-to-add');
 
             self.addSongToPlaylist(songToAddIndex);
@@ -224,7 +226,7 @@ let QueryListBuilder = class {
     addAlbumToPlaylistEvent = function (element) {
         let self = this;
 
-        element.addEventListener('click', function () {
+        element.addEventListener(clickTouch, function () {
             let albumId = element.getAttribute('album-to-add');
             let query = 'album_id:' + albumId;
             self.executeBeetsQuery(query);
