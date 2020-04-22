@@ -1,9 +1,5 @@
 const clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
 
-alt = function () {
-    alert('test');
-}
-
 Amplitude.init({
     'songs': []
 });
@@ -31,11 +27,9 @@ let queryInput = document.getElementById("query");
 /**
  * Execute Beets Query
  */
-// document.getElementById('queryBtn').addEventListener(clickTouch, function () {
-//     let queryListBuilder = new QueryListBuilder();
-//
-//     queryListBuilder.executeBeetsQuery(queryInput.value, true);
-// }, false);
+document.getElementById('queryBtn').addEventListener(clickTouch, function () {
+    (new QueryListBuilder()).executeBeetsQuery(queryInput.value, true);
+}, false);
 
 
 /**
@@ -45,8 +39,7 @@ queryInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
         // Cancel the default action, if needed
         event.preventDefault();
-        // Trigger the button element with a click
-        document.getElementById('queryBtn').click();
+        (new QueryListBuilder()).executeBeetsQuery(queryInput.value, true);
     }
 }, false);
 
