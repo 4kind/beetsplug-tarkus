@@ -4,7 +4,7 @@
     <title>Beets WebUI</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tarkus.css') }}"/>
-    <script src="{{ url_for('static', filename='js/amplitude.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='amplitude.min.js') }}"></script>
 </head>
 <body>
 <div class="example-container">
@@ -109,7 +109,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/static/js/tarkus.js"></script>
+
+<script src="{{ url_for('static', filename='tarkus.js') }}"></script>
+
 
 </body>
 </html>
