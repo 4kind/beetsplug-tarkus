@@ -478,6 +478,8 @@ div.white-player-playlist-song {
     padding-top: 8px;
     padding-bottom: 8px;
     cursor: pointer;
+    float: left;
+    width: calc(100% - 48px);
 }
 
 div.white-player-playlist-song:hover {
@@ -486,9 +488,11 @@ div.white-player-playlist-song:hover {
 
 div.white-player-playlist-song.amplitude-active-song-container {
     background-color: rgba(238, 100, 82, 0.3);
+    width: calc(100% - 48px);
+    float: left;
 }
 
-div.white-player-playlist-song img {
+div.white-player-playlist-song.amplitude-song-container img {
     width: 48px;
     height: 48px;
     border-radius: 3px;
@@ -500,6 +504,16 @@ div.white-player-playlist-song div.playlist-song-meta {
     float: left;
     margin-left: 15px;
     width: calc(100% - 80px);
+}
+
+div.white-player-playlist-song-container div.playlist-song-remove {
+    float: left;
+    margin: 15px;
+    width: 18px;
+    height: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
 }
 
 div.white-player-playlist-song div.playlist-song-meta span.playlist-song-name {

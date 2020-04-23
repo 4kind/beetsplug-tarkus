@@ -285,7 +285,6 @@ var QueryListBuilder = function QueryListBuilder() {
         }
     }
 
-    // TODO: can .id be removed?
     this._getIndexOfSong = function (songs, song) {
         return songs.findIndex(function (x) {
             return x.id === song.id;
@@ -303,10 +302,25 @@ var QueryListBuilder = function QueryListBuilder() {
         // Grabs the playlist element we will be appending to
         var playlistElement = document.querySelector('.white-player-playlist');
 
+        // Create container to play/pause each song
+        var playlistSongContainer = document.createElement('div');
+        playlistSongContainer.setAttribute('class', 'white-player-playlist-song-container');
+
         // Creates the playlist song element
         var playlistSong = document.createElement('div');
         playlistSong.setAttribute('class', 'white-player-playlist-song amplitude-song-container amplitude-play-pause');
         playlistSong.setAttribute('data-amplitude-song-index', index.toString());
+
+        // Removes song from playlist
+        var playlistSongRemove = document.createElement('div');
+        playlistSongRemove.setAttribute('class', 'playlist-song-remove');
+        playlistSongRemove.setAttribute('data-amplitude-song-index', index.toString());
+
+        this._addEventListenerRemoveSong(playlistSongRemove, playlistSongContainer);
+
+        // Creates the playlist song image element
+        var playlistSongRemoveImg = document.createElement('img');
+        playlistSongRemoveImg.setAttribute('src', "/static/images/close.svg");
 
         // Creates the playlist song image element
         var playlistSongImg = document.createElement('img');
@@ -334,7 +348,32 @@ var QueryListBuilder = function QueryListBuilder() {
         playlistSong.appendChild(playlistSongImg);
         playlistSong.appendChild(playlistSongMeta);
 
+        playlistSongRemove.appendChild(playlistSongRemoveImg);
+
+        playlistSongContainer.appendChild(playlistSong);
+        playlistSongContainer.appendChild(playlistSongRemove);
         // Appends the song element to the playlist
-        playlistElement.appendChild(playlistSong);
+        playlistElement.appendChild(playlistSongContainer);
+    }
+
+    this._addEventListenerRemoveSong = function (element, elementToRemove) {
+        var self = this;
+        element.addEventListener(clickTouch, function () {
+            var songIndexToRemove = this.getAttribute('data-amplitude-song-index');
+
+            elementToRemove.remove();
+
+            var songsElem = document.getElementsByClassName('white-player-playlist-song-container');
+
+            for (var i = 0; i < songsElem.length; i++) {
+                var songElem = songsElem[i];
+                songElem.children[0].setAttribute('data-amplitude-song-index', i.toString());
+                songElem.children[1].setAttribute('data-amplitude-song-index', i.toString());
+            }
+
+            Amplitude.removeSong(songIndexToRemove);
+
+            console.log(Amplitude.getSongs());
+        })
     }
 }
