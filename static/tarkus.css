@@ -644,6 +644,13 @@ div.album-to-add {
     border-radius: 6px;
     background-color: white;
     width: 100%;
+    min-height: 20px;
+}
+
+div.album-to-add.no-songs-found {
+    width: calc(100% - 20px);
+    padding: 10px;
+    min-height: 20px;
 }
 
 div.album-to-add .album-art {
@@ -748,11 +755,21 @@ body div.example-container div.right {
 input#query {
     width: calc(70% - 10px);
     margin-right: 10px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 18px;
 }
 
 button#queryBtn {
     width: 30%;
     cursor: pointer;
+    height: 40px;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 18px;
+    color: #414344;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 39.9375em) {
@@ -765,6 +782,7 @@ button#queryBtn {
     }
 
     body div.example-container div.right {
+        margin-top: 10px;
         width: 100%;
     }
 }

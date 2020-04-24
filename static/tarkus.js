@@ -88,21 +88,25 @@ var QueryListBuilder = function QueryListBuilder() {
                 var items = response.items;
                 var songs = self.songsToAdd;
 
-                for (var i = 0; i < items.length; i++) {
-                    var song = new Song(items[i]);
+                if (items.length === 0) {
+                    self._addNoSongFoundElement();
+                } else {
+                    for (var i = 0; i < items.length; i++) {
+                        var song = new Song(items[i]);
 
-                    // add only songs that dont exist yet in Amplitude
-                    var index = self._getIndexOfSong(songs, song);
+                        // add only songs that dont exist yet in Amplitude
+                        var index = self._getIndexOfSong(songs, song);
 
-                    if (index < 0) {
-                        self.songsToAdd.push(song);
-                        index = songs.length;
-                    }
+                        if (index < 0) {
+                            self.songsToAdd.push(song);
+                            index = songs.length;
+                        }
 
-                    if (true === buildHtmlDom) {
-                        self._buildSongListGroupedByAlbum(song, index);
-                    } else {
-                        self._addSongToPlaylist(index);
+                        if (true === buildHtmlDom) {
+                            self._buildSongListGroupedByAlbum(song, index);
+                        } else {
+                            self._addSongToPlaylist(index);
+                        }
                     }
                 }
             }
@@ -112,21 +116,35 @@ var QueryListBuilder = function QueryListBuilder() {
     }
 
     /**
+     * Add element with hint that no song was found for the current query.
+     *
+     * @private
+     */
+    this._addNoSongFoundElement = function () {
+        var noSongsFound = document.createElement('div');
+        noSongsFound.setAttribute('class', 'album-to-add no-songs-found');
+        noSongsFound.innerHTML = 'No songs found';
+
+        this.songsNodeContainer.appendChild(noSongsFound);
+    }
+
+    /**
      * Create DOM elements for the Beets query results
      *
      * @param {Song} song
      * @param {Number} index
+     *
+     * @private
      */
     this._buildSongListGroupedByAlbum = function (song, index) {
-        var self = this;
         var albumChanged = this.albumId !== song.album_id;
 
         if (true === albumChanged) {
-            self._addAlbumToQueryContainer(song);
+            this._addAlbumToQueryContainer(song);
         }
 
         if (null !== this.albumSongsContainer) {
-            self._addSongToAlbumContainer(song, index);
+            this._addSongToAlbumContainer(song, index);
         }
 
         this.albumId = song.album_id;
@@ -136,10 +154,10 @@ var QueryListBuilder = function QueryListBuilder() {
      * Add div container for each album to group songs by album
      *
      * @param {Song} song
+     *
+     * @private
      */
     this._addAlbumToQueryContainer = function (song) {
-        var self = this;
-
         var albumElem = document.createElement('div');
         albumElem.setAttribute('class', 'album-to-add');
         albumElem.setAttribute('album-to-add', song.album_id);
@@ -165,7 +183,7 @@ var QueryListBuilder = function QueryListBuilder() {
         imgElem.setAttribute('src', song.cover_art_url);
         imgElem.setAttribute('album-to-add', song.album_id);
 
-        self._addAlbumToPlaylistEvent(imgElem);
+        this._addAlbumToPlaylistEvent(imgElem);
 
         albumMetaData.appendChild(albumArtArtistElem);
         albumMetaData.appendChild(albumArtAlbumElem);
@@ -187,10 +205,10 @@ var QueryListBuilder = function QueryListBuilder() {
      *
      * @param {Song} song
      * @param {Number} index
+     *
+     * @private
      */
     this._addSongToAlbumContainer = function (song, index) {
-        var self = this;
-
         var addSongToPlaylistElem = document.createElement('a');
         addSongToPlaylistElem.setAttribute('class', 'add-to-playlist-button');
         addSongToPlaylistElem.setAttribute('song-to-add', index.toString());
@@ -205,13 +223,13 @@ var QueryListBuilder = function QueryListBuilder() {
 
         var songLength = document.createElement('span');
         songLength.setAttribute('class', 'song-length');
-        songLength.innerHTML = self._getSongLengthFormatted(song.length);
+        songLength.innerHTML = this._getSongLengthFormatted(song.length);
 
         addSongToPlaylistElem.appendChild(songTrack);
         addSongToPlaylistElem.appendChild(songName);
         addSongToPlaylistElem.appendChild(songLength);
 
-        self._addSongToPlaylistEvent(addSongToPlaylistElem);
+        this._addSongToPlaylistEvent(addSongToPlaylistElem);
 
         var songElem = document.createElement('div');
         songElem.setAttribute('class', 'song-to-add');
@@ -227,6 +245,8 @@ var QueryListBuilder = function QueryListBuilder() {
      * @param {Number} songLength
      *
      * @returns {string}
+     *
+     * @private
      */
     this._getSongLengthFormatted = function (songLength) {
         return new Date(1000 * songLength).toISOString().substr(14, 5);
@@ -236,6 +256,8 @@ var QueryListBuilder = function QueryListBuilder() {
      * Click event to add song to the playlist
      *
      * @param {Element} element
+     *
+     * @private
      */
     this._addSongToPlaylistEvent = function (element) {
         var self = this;
@@ -251,6 +273,8 @@ var QueryListBuilder = function QueryListBuilder() {
      * Click event to add album to the playlist
      *
      * @param {Element} element
+     *
+     * @private
      */
     this._addAlbumToPlaylistEvent = function (element) {
         var self = this;
@@ -266,22 +290,22 @@ var QueryListBuilder = function QueryListBuilder() {
      * Add song by index to playlist
      *
      * @param {Number} songToAddIndex
+     *
+     * @private
      */
     this._addSongToPlaylist = function (songToAddIndex) {
-        var self = this;
-
         /*
          Adds the song to Amplitude, appends the song to the display,
          then rebinds all of the AmplitudeJS elements.
         */
-        var newIndex = Amplitude.addSong(self.songsToAdd[songToAddIndex]);
+        var newIndex = Amplitude.addSong(this.songsToAdd[songToAddIndex]);
 
-        self._appendToSongDisplay(self.songsToAdd[songToAddIndex], newIndex);
+        this._appendToSongDisplay(this.songsToAdd[songToAddIndex], newIndex);
         Amplitude.bindNewElements();
 
         var isFirstSong = Amplitude.getSongs().length === 1;
         if (isFirstSong) {
-            self.next.click();
+            this.next.click();
         }
     }
 
@@ -296,6 +320,8 @@ var QueryListBuilder = function QueryListBuilder() {
      *
      * @param {Song} song
      * @param {Number} index
+     *
+     * @private
      */
     this._appendToSongDisplay = function (song, index) {
 
@@ -348,32 +374,51 @@ var QueryListBuilder = function QueryListBuilder() {
         playlistSong.appendChild(playlistSongImg);
         playlistSong.appendChild(playlistSongMeta);
 
+        // Appends image to remove song element
         playlistSongRemove.appendChild(playlistSongRemoveImg);
 
+        // Appends Song and Remove Song to Song Container
         playlistSongContainer.appendChild(playlistSong);
         playlistSongContainer.appendChild(playlistSongRemove);
+
         // Appends the song element to the playlist
         playlistElement.appendChild(playlistSongContainer);
     }
 
+    /**
+     * Add Event Handler to remove song.
+     * Song is removed from Amplitude songs and playlist in DOM.
+     *
+     * @param {Element} element
+     * @param {Element} elementToRemove
+     *
+     * @private
+     */
     this._addEventListenerRemoveSong = function (element, elementToRemove) {
         var self = this;
+
         element.addEventListener(clickTouch, function () {
             var songIndexToRemove = this.getAttribute('data-amplitude-song-index');
-
-            elementToRemove.remove();
-
-            var songsElem = document.getElementsByClassName('white-player-playlist-song-container');
-
-            for (var i = 0; i < songsElem.length; i++) {
-                var songElem = songsElem[i];
-                songElem.children[0].setAttribute('data-amplitude-song-index', i.toString());
-                songElem.children[1].setAttribute('data-amplitude-song-index', i.toString());
-            }
-
             Amplitude.removeSong(songIndexToRemove);
 
-            console.log(Amplitude.getSongs());
+            elementToRemove.remove();
+            self._removeSongFromPlaylistInDom();
         })
+    }
+
+    /**
+     * Re-init song index in playlist.
+     *
+     * @private
+     */
+    this._removeSongFromPlaylistInDom = function () {
+        var songsElem = document.getElementsByClassName('white-player-playlist-song-container');
+
+        for (var i = 0; i < songsElem.length; i++) {
+            var songElem = songsElem[i];
+            var songIndex = i.toString();
+            songElem.children[0].setAttribute('data-amplitude-song-index', songIndex);
+            songElem.children[1].setAttribute('data-amplitude-song-index', songIndex);
+        }
     }
 }
