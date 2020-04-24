@@ -508,12 +508,11 @@ div.white-player-playlist-song div.playlist-song-meta {
 
 div.white-player-playlist-song-container div.playlist-song-remove {
     float: left;
-    margin: 15px;
     width: 18px;
     height: 18px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 23px 15px;
     cursor: pointer;
+    border-bottom: 1px solid #F5F5F6;
 }
 
 div.white-player-playlist-song div.playlist-song-meta span.playlist-song-name {
@@ -549,7 +548,6 @@ div.white-player-playlist-controls {
 }
 
 div.white-player-playlist-controls img.playlist-album-art {
-    /*float: left;*/
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     height: 64px;
@@ -769,10 +767,11 @@ button#queryBtn {
     font-size: 18px;
     color: #414344;
     font-family: "Lato", sans-serif;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-@media screen and (max-width: 39.9375em) {
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
     body div.example-container {
         flex-direction: column;
     }
@@ -787,7 +786,7 @@ button#queryBtn {
     }
 }
 
-@media screen and (min-width: 40em) {
+@media only screen and (min-width: 321px) {
     body div.right {
         padding-right: 20px;
     }

@@ -305,7 +305,7 @@ var QueryListBuilder = function QueryListBuilder() {
 
         var isFirstSong = Amplitude.getSongs().length === 1;
         if (isFirstSong) {
-            this.next.click();
+            Amplitude.next();
         }
     }
 
