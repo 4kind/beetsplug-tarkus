@@ -4,3 +4,8 @@ library.db
 static/music
 venv
 __pycache__
+
+# Distribution / packaging
+env/
+build/
+*.egg-info/
