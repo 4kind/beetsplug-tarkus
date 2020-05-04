@@ -99,7 +99,7 @@ var QueryListBuilder = function QueryListBuilder() {
 
                         if (index < 0) {
                             self.songsToAdd.push(song);
-                            index = songs.length;
+                            index = songs.length - 1;
                         }
 
                         if (true === buildHtmlDom) {
