@@ -85,7 +85,7 @@ var QueryListBuilder = function QueryListBuilder() {
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 var response = JSON.parse(this.responseText)
-                var items = response.items;
+                var items = response.items || response.results;
                 var songs = self.songsToAdd;
 
                 if (items.length === 0) {
