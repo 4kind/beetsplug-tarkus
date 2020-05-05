@@ -18,5 +18,5 @@ Current features:
 2. enable plugin `tarkus` in beets config
 3. start web UI with `beet web` (http://127.0.0.1:8337 as default)
 
-#Uninstall
+# Uninstall
 `pip uninstall tarkus`
