@@ -1,4 +1,13 @@
+![alt text](image.png)
+
 This is an alternate beets web UI player using AmplitudeJS. It requires the `web` plugin to be enabled.
+
+Current features:
+* find songs by `web`-API query
+* add song to playlist
+* add album to playlist
+* delete song from playlist
+* responsive layout
 
 # Prerequisites
 * Python 3
