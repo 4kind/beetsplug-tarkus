@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Beets WebUI</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tarkus.css') }}"/>
     <script src="{{ url_for('static', filename='amplitude.min.js') }}"></script>
@@ -102,7 +103,8 @@
     <div class="right">
         <div id="query-container">
             <div>
-                <input type="search" id="query" placeholder="Query"><button id="queryBtn">Search</button>
+                <input type="search" id="query" placeholder="Query">
+                <button id="queryBtn">Search</button>
             </div>
             <div id="songs-node-container"></div>
         </div>

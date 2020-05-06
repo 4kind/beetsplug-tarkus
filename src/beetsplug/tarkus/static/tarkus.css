@@ -1,41 +1,41 @@
 div#white-player {
     width: 100%;
     max-width: 375px;
-    background-color: #FFFFFF;
+    background-color: #FFF;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 8px;
     font-family: "Lato", sans-serif;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
+    position: relative
 }
 
 div.white-player-top {
     height: 64px;
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: center
 }
 
 div.white-player-top div {
-    flex: 1;
+    flex: 1
 }
 
 div.white-player-top div.center {
-    text-align: center;
+    text-align: center
 }
 
 div.white-player-top span.now-playing {
     color: #414344;
     font-family: "Lato", sans-serif;
     line-height: 64px;
-    font-weight: 600;
+    font-weight: 600
 }
 
 div.white-player-top img.show-playlist {
     float: right;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 10px
 }
 
 div#white-player-center img.main-album-art {
@@ -44,25 +44,25 @@ div#white-player-center img.main-album-art {
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     width: 280px;
-    height: 280px;
+    height: 280px
 }
 
 div#white-player-center div.song-meta-data span.song-name {
     color: #414344;
     display: block;
     text-align: center;
-    font-size: 20px;
+    font-size: 20px
 }
 
 div#white-player-center div.song-meta-data span.song-artist {
     color: #AAAFB3;
     display: block;
     text-align: center;
-    font-size: 14px;
+    font-size: 14px
 }
 
 div#white-player-center div.time-progress {
-    margin-bottom: 30px;
+    margin-bottom: 30px
 }
 
 div#white-player-center div.time-progress span.current-time {
@@ -70,7 +70,7 @@ div#white-player-center div.time-progress span.current-time {
     font-size: 12px;
     display: block;
     float: left;
-    margin-left: 20px;
+    margin-left: 20px
 }
 
 div#white-player-center div.time-progress div#progress-container {
@@ -78,18 +78,7 @@ div#white-player-center div.time-progress div#progress-container {
     margin-right: 20px;
     position: relative;
     height: 20px;
-    cursor: pointer;
-    /*
-      IE 11
-    */
-}
-
-div#white-player-center div.time-progress div#progress-container:hover input[type=range].amplitude-song-slider::-webkit-slider-thumb {
-    display: block;
-}
-
-div#white-player-center div.time-progress div#progress-container:hover input[type=range].amplitude-song-slider::-moz-range-thumb {
-    visibility: visible;
+    cursor: pointer
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-played-progress {
@@ -105,40 +94,24 @@ div#white-player-center div.time-progress div#progress-container progress#song-p
     height: 4px;
     border-radius: 5px;
     background: transparent;
-    border: none;
-    /* Needed for Firefox */
-}
-
-@media all and (-ms-high-contrast: none) {
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container progress#song-played-progress {
-        color: #FA6733;
-        border: none;
-        background-color: #E1E1E1;
-    }
-}
-
-@supports (-ms-ime-align: auto) {
-    div#white-player-center div.time-progress div#progress-container progress#song-played-progress {
-        color: #FA6733;
-        border: none;
-    }
+    border: none
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-played-progress[value]::-webkit-progress-bar {
     background: none;
-    border-radius: 5px;
+    border-radius: 5px
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-played-progress[value]::-webkit-progress-value {
     background-color: #FA6733;
-    border-radius: 5px;
+    border-radius: 5px
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-played-progress::-moz-progress-bar {
     border-radius: 5px;
-    background: #FA6733 none;
+    background: rgb(157, 150, 142) none;
     height: 5px;
-    margin-top: -2px;
+    margin-top: -2px
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress {
@@ -154,50 +127,18 @@ div#white-player-center div.time-progress div#progress-container progress#song-b
     height: 4px;
     border-radius: 5px;
     border: none;
-    background: #D7DEE3;
+    background: #D7DEE3
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress[value]::-webkit-progress-bar {
     background-color: #E1E1E1;
-    border-radius: 5px;
+    border-radius: 5px
 }
 
 div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress[value]::-webkit-progress-value {
     background-color: #E1E1E1;
     border-radius: 5px;
-    transition: width .1s ease;
-}
-
-div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress::-moz-progress-bar {
-    border-radius: 5px;
-    background: #E1E1E1 none;
-    height: 5px;
-    margin-top: -2px;
-}
-
-div#white-player-center div.time-progress div#progress-container progress::-ms-fill {
-    border: none;
-}
-
-@-moz-document url-prefix() {
-    div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress {
-        top: 9px;
-        border: none;
-    }
-}
-
-@media all and (-ms-high-contrast: none) {
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress {
-        color: #78909C;
-        border: none;
-    }
-}
-
-@supports (-ms-ime-align: auto) {
-    div#white-player-center div.time-progress div#progress-container progress#song-buffered-progress {
-        color: #78909C;
-        border: none;
-    }
+    transition: width .1s ease
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range] {
@@ -209,11 +150,7 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
     top: -7px;
     height: 20px;
     cursor: pointer;
-    background-color: inherit;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]:focus {
-    outline: none;
+    background-color: inherit
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-webkit-slider-runnable-track {
@@ -223,7 +160,7 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
     box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
     background: #FA6733;
     border-radius: 0;
-    border: 0 solid #010101;
+    border: 0 solid #010101
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-webkit-slider-thumb {
@@ -235,21 +172,7 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
     background: #FA6733;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -7.5px;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #FA6733;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 0;
-    cursor: pointer;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
-    background: #FA6733;
-    border-radius: 0;
-    border: 0 solid #010101;
+    margin-top: -7.5px
 }
 
 div#white-player-center div.time-progress div#progress-container input[type=range]::-moz-range-thumb {
@@ -259,86 +182,7 @@ div#white-player-center div.time-progress div#progress-container input[type=rang
     width: 15px;
     border-radius: 16px;
     background: #FA6733;
-    cursor: pointer;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-track {
-    width: 100%;
-    height: 0;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-fill-lower {
-    background: #003d57;
-    border: 0 solid #010101;
-    border-radius: 0;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-fill-upper {
-    background: #FA6733;
-    border: 0 solid #010101;
-    border-radius: 0;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]::-ms-thumb {
-    box-shadow: 0 0 0 #000000, 0 0 0 #0d0d0d;
-    border: 1px solid #FA6733;
-    width: 15px;
-    border-radius: 16px;
-    background: #FA6733;
-    cursor: pointer;
-    height: 0;
-    display: none;
-}
-
-@media all and (-ms-high-contrast: none) {
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type="range"].amplitude-song-slider {
-        padding: 0;
-    }
-
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-thumb {
-        height: 15px;
-        width: 15px;
-        border-radius: 10px;
-        cursor: pointer;
-        margin-top: -8px;
-    }
-
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-track {
-        border-width: 15px 0;
-        border-color: transparent;
-    }
-
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-fill-lower {
-        background: #E1E1E1;
-        border-radius: 10px;
-    }
-
-    div#white-player-center div.time-progress div#progress-container *::-ms-backdrop, div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-fill-upper {
-        background: #E1E1E1;
-        border-radius: 10px;
-    }
-}
-
-@supports (-ms-ime-align: auto) {
-    div#white-player-center div.time-progress div#progress-container input[type=range].amplitude-song-slider::-ms-thumb {
-        height: 15px;
-        width: 15px;
-        margin-top: 3px;
-    }
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]:focus::-ms-fill-lower {
-    background: #FA6733;
-}
-
-div#white-player-center div.time-progress div#progress-container input[type=range]:focus::-ms-fill-upper {
-    background: #FA6733;
+    cursor: pointer
 }
 
 div#white-player-center div.time-progress span.duration {
@@ -346,12 +190,12 @@ div#white-player-center div.time-progress span.duration {
     font-size: 12px;
     display: block;
     float: right;
-    margin-right: 20px;
+    margin-right: 20px
 }
 
 div#white-player-controls {
     text-align: center;
-    padding-bottom: 35px;
+    padding-bottom: 35px
 }
 
 div#white-player-controls div#shuffle {
@@ -360,15 +204,15 @@ div#white-player-controls div#shuffle {
     height: 16px;
     cursor: pointer;
     vertical-align: middle;
-    margin-right: 24px;
+    margin-right: 24px
 }
 
 div#white-player-controls div#shuffle.amplitude-shuffle-off {
-    background: url("/static/images/shuffle-off.svg");
+    background: url(/static/images/shuffle-off.svg)
 }
 
 div#white-player-controls div#shuffle.amplitude-shuffle-on {
-    background: url("/static/images/shuffle-on.svg");
+    background: url(/static/images/shuffle-on.svg)
 }
 
 div#white-player-controls div#previous {
@@ -376,9 +220,9 @@ div#white-player-controls div#previous {
     height: 53px;
     width: 53px;
     cursor: pointer;
-    background: url("/static/images/previous.svg");
+    background: url(/static/images/previous.svg);
     vertical-align: middle;
-    margin-right: 16px;
+    margin-right: 16px
 }
 
 div#white-player-controls div#play-pause {
@@ -387,15 +231,15 @@ div#white-player-controls div#play-pause {
     height: 85px;
     cursor: pointer;
     vertical-align: middle;
-    margin-right: 16px;
+    margin-right: 16px
 }
 
 div#white-player-controls div#play-pause.amplitude-paused {
-    background: url("/static/images/play.svg");
+    background: url(/static/images/play.svg)
 }
 
 div#white-player-controls div#play-pause.amplitude-playing {
-    background: url("/static/images/pause.svg");
+    background: url(/static/images/pause.svg)
 }
 
 div#white-player-controls div#next {
@@ -403,9 +247,9 @@ div#white-player-controls div#next {
     height: 53px;
     width: 53px;
     cursor: pointer;
-    background: url("/static/images/next.svg");
+    background: url(/static/images/next.svg);
     vertical-align: middle;
-    margin-right: 24px;
+    margin-right: 24px
 }
 
 div#white-player-controls div#repeat {
@@ -413,15 +257,15 @@ div#white-player-controls div#repeat {
     width: 18px;
     height: 16px;
     cursor: pointer;
-    vertical-align: middle;
+    vertical-align: middle
 }
 
 div#white-player-controls div#repeat.amplitude-repeat-off {
-    background: url("/static/images/repeat-off.svg");
+    background: url(/static/images/repeat-off.svg)
 }
 
 div#white-player-controls div#repeat.amplitude-repeat-on {
-    background: url("/static/images/repeat-on.svg");
+    background: url(/static/images/repeat-on.svg)
 }
 
 div#white-player-playlist-container {
@@ -430,47 +274,47 @@ div#white-player-playlist-container {
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: white;
+    background-color: #fff;
     z-index: 9999;
     display: none;
-    border-radius: 8px;
+    border-radius: 8px
 }
 
 div.white-player-playlist-top {
     height: 64px;
     text-align: center;
-    display: flex;
+    display: flex
 }
 
 div.white-player-playlist-top div {
-    flex: 1;
+    flex: 1
 }
 
 div.white-player-playlist-top div span.queue {
     color: #414344;
     font-family: "Lato", sans-serif;
     line-height: 64px;
-    font-weight: 600;
+    font-weight: 600
 }
 
 div.white-player-playlist-top div img.close-playlist {
     margin-right: 16px;
     margin-top: 22px;
     float: right;
-    cursor: pointer;
+    cursor: pointer
 }
 
 div.white-player-up-next {
     margin-top: 6px;
     padding-left: 20px;
     font-size: 24px;
-    color: #414344;
+    color: #414344
 }
 
 div.white-player-playlist {
     margin-top: 32px;
     height: calc(100% - 234px);
-    overflow-y: scroll;
+    overflow-y: scroll
 }
 
 div.white-player-playlist-song {
@@ -479,17 +323,17 @@ div.white-player-playlist-song {
     padding-bottom: 8px;
     cursor: pointer;
     float: left;
-    width: calc(100% - 48px);
+    width: calc(100% - 48px)
 }
 
 div.white-player-playlist-song:hover {
-    background-color: rgba(211, 94, 154, 0.3);
+    background-color: rgba(211, 94, 154, 0.3)
 }
 
 div.white-player-playlist-song.amplitude-active-song-container {
     background-color: rgba(238, 100, 82, 0.3);
     width: calc(100% - 48px);
-    float: left;
+    float: left
 }
 
 div.white-player-playlist-song.amplitude-song-container img {
@@ -497,13 +341,13 @@ div.white-player-playlist-song.amplitude-song-container img {
     height: 48px;
     border-radius: 3px;
     margin-left: 16px;
-    float: left;
+    float: left
 }
 
 div.white-player-playlist-song div.playlist-song-meta {
     float: left;
     margin-left: 15px;
-    width: calc(100% - 80px);
+    width: calc(100% - 80px)
 }
 
 div.white-player-playlist-song-container div.playlist-song-remove {
@@ -512,7 +356,7 @@ div.white-player-playlist-song-container div.playlist-song-remove {
     height: 18px;
     padding: 23px 15px;
     cursor: pointer;
-    border-bottom: 1px solid #F5F5F6;
+    border-bottom: 1px solid #F5F5F6
 }
 
 div.white-player-playlist-song div.playlist-song-meta span.playlist-song-name {
@@ -522,48 +366,38 @@ div.white-player-playlist-song div.playlist-song-meta span.playlist-song-name {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-div.white-player-playlist-song div.playlist-song-meta span.playlist-artist-album {
-    color: #AAAFB3;
-    font-size: 12px;
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis
 }
 
 div.white-player-playlist-song::after {
     content: "";
     display: table;
-    clear: both;
+    clear: both
 }
 
 div.white-player-playlist-controls {
     background-color: #F5F5F6;
     border-radius: 8px;
-    padding: 16px;
+    padding: 16px
 }
 
 div.white-player-playlist-controls img.playlist-album-art {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     height: 64px;
-    width: 64px;
+    width: 64px
 }
 
 div.white-player-playlist-controls div.playlist-controls {
     float: left;
     margin-left: 25px;
-    width: calc(100% - 89px);
+    width: calc(100% - 89px)
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-meta-data {
     display: inline-block;
     width: calc(100% - 125px);
-    vertical-align: middle;
+    vertical-align: middle
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-meta-data span.song-name {
@@ -572,7 +406,7 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-meta-data 
     font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-meta-data span.song-artist {
@@ -581,7 +415,7 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-meta-data 
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper {
@@ -589,7 +423,7 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-control-wr
     margin-top: 10px;
     display: inline-block;
     width: 120px;
-    vertical-align: middle;
+    vertical-align: middle
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper div#playlist-previous {
@@ -597,9 +431,9 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-control-wr
     height: 32px;
     width: 32px;
     cursor: pointer;
-    background: url("/static/images/previous.svg");
+    background: url(/static/images/previous.svg);
     vertical-align: middle;
-    background-size: 32px 32px;
+    background-size: 32px 32px
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper div#playlist-play-pause {
@@ -607,17 +441,17 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-control-wr
     width: 32px;
     height: 32px;
     cursor: pointer;
-    vertical-align: middle;
+    vertical-align: middle
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper div#playlist-play-pause.amplitude-paused {
-    background: url("/static/images/play.svg");
-    background-size: 32px 32px;
+    background: url(/static/images/play.svg);
+    background-size: 32px 32px
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper div#playlist-play-pause.amplitude-playing {
-    background: url("/static/images/pause.svg");
-    background-size: 32px 32px;
+    background: url(/static/images/pause.svg);
+    background-size: 32px 32px
 }
 
 div.white-player-playlist-controls div.playlist-controls div.playlist-control-wrapper div#playlist-next {
@@ -625,49 +459,50 @@ div.white-player-playlist-controls div.playlist-controls div.playlist-control-wr
     height: 32px;
     width: 32px;
     cursor: pointer;
-    background: url("/static/images/next.svg");
+    background: url(/static/images/next.svg);
     vertical-align: middle;
-    background-size: 32px 32px;
+    background-size: 32px 32px
 }
 
 div.white-player-playlist-controls::after {
     content: "";
     display: table;
-    clear: both;
+    clear: both
 }
 
 div.album-to-add {
     float: left;
     margin-top: 10px;
     border-radius: 6px;
-    background-color: white;
+    background-color: #fff;
     width: 100%;
     min-height: 20px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12)
 }
 
 div.album-to-add.no-songs-found {
     width: calc(100% - 20px);
     padding: 10px;
-    min-height: 20px;
+    min-height: 20px
 }
 
 div.album-to-add .album-art {
     width: 100%;
-    float: left;
+    float: left
 }
 
 div.album-to-add .album-art .album-artist {
-    color: #414344;
+    color: #414344
 }
 
 div.album-to-add .album-art .album-year {
-    color: #AAAFB3;
+    color: #AAAFB3
 }
 
 div.album-to-add .album-art > div {
     padding: 10px;
     width: calc(70% - 20px);
-    float: left;
+    float: left
 }
 
 div.album-to-add .album-art div div {
@@ -675,20 +510,20 @@ div.album-to-add .album-art div div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
+    width: 100%
 }
 
 div.album-to-add .album-art img {
     border-radius: 6px;
     width: 30%;
     cursor: pointer;
-    float: left;
+    float: left
 }
 
 div.album-to-add .album-songs {
     width: calc(100% - 10px);
     float: left;
-    margin: 5px;
+    margin: 5px
 }
 
 div.song-to-add a.add-to-playlist-button {
@@ -696,66 +531,66 @@ div.song-to-add a.add-to-playlist-button {
     padding: 5px;
     display: block;
     margin: 0 auto;
-    cursor: pointer;
+    cursor: pointer
 }
 
 div.song-to-add a.add-to-playlist-button span {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: top
 }
 
 div.song-to-add a.add-to-playlist-button span.song-track {
     width: 20px;
     text-align: right;
-    margin-right: 5px;
+    margin-right: 5px
 }
 
 div.song-to-add a.add-to-playlist-button span.song-name {
     width: calc(100% - 70px);
-    margin-right: 5px;
+    margin-right: 5px
 }
 
 div.song-to-add a.add-to-playlist-button span.song-length {
     width: 40px;
-    text-align: right;
+    text-align: right
 }
 
-/*
-  3. Layout
-*/
 body {
     background-image: linear-gradient(-134deg, #C182DC 0%, #FB7C62 94%, #FF7C5B 100%);
     -webkit-font-smoothing: antialiased;
     font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-    line-height: 1.5;
+    line-height: 1.5
 }
 
 body div.example-container {
     width: 100%;
-    display: flex;
+    display: flex
 }
 
 body div.example-container div.left {
-    width: 50%;
+    width: 50%
 }
 
 body div.example-container div.right {
-    width: 50%;
+    width: 50%
 }
 
 #query-container {
     margin-right: auto;
     margin-left: auto;
     width: 100%;
-    float: left;
+    float: left
 }
 
 input#query {
-    width: calc(70% - 10px);
+    width: calc(70% - 15px);
     margin-right: 10px;
     height: 40px;
     border-radius: 6px;
     font-size: 18px;
+    padding-left: 10px;
+    border: 0;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12)
 }
 
 button#queryBtn {
@@ -763,31 +598,33 @@ button#queryBtn {
     cursor: pointer;
     height: 40px;
     border-radius: 6px;
-    background-color: white;
+    background-color: #fff;
     font-size: 18px;
     color: #414344;
     font-family: "Lato", sans-serif;
     font-weight: 600;
+    border: 0;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12)
 }
 
-/* Smartphones (portrait) ----------- */
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 26rem) {
     body div.example-container {
-        flex-direction: column;
+        flex-direction: column
     }
 
     body div.example-container div.left {
-        width: 100%;
+        width: 100%
     }
 
     body div.example-container div.right {
         margin-top: 10px;
-        width: 100%;
+        width: 100%
     }
 }
 
-@media only screen and (min-width: 321px) {
+@media only screen and (min-width: 26.01rem) {
     body div.right {
         padding-right: 20px;
+        padding-left: 20px;
     }
 }
