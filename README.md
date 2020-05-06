@@ -10,7 +10,6 @@ Current features:
 * responsive layout
 
 # Prerequisites
-* Python 3
 * beets with `web` plugin enabled
 
 # Installation
