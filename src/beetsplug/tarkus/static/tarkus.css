@@ -572,7 +572,7 @@ body div.example-container div.left {
 }
 
 body div.example-container div.right {
-    width: 50%
+    width: calc(50% - 10px)
 }
 
 #query-container {
@@ -624,7 +624,22 @@ button#queryBtn {
 
 @media only screen and (min-width: 26.01rem) {
     body div.right {
-        padding-right: 20px;
-        padding-left: 20px;
+        padding-left: 10px
+    }
+
+    div#white-player-controls div#next {
+        margin-right: 14px
+    }
+
+    div#white-player-controls div#shuffle {
+        margin-right: 14px
+    }
+
+    div#white-player-controls div#previous {
+        margin-right: 10px
+    }
+
+    div#white-player-controls div#play-pause {
+        margin-right: 10px
     }
 }
