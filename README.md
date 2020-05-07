@@ -1,6 +1,6 @@
-![alt text](large.png)
-
 This is an alternate beets web UI player using AmplitudeJS. It requires the `web` plugin to be enabled.
+
+![alt text](large.png)
 
 Current features:
 * find songs by `web`-API query
