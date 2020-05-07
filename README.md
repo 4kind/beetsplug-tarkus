@@ -1,4 +1,5 @@
-![alt text](image.png)
+![alt text](large.png)
+![alt text](small.png)
 
 This is an alternate beets web UI player using AmplitudeJS. It requires the `web` plugin to be enabled.
 

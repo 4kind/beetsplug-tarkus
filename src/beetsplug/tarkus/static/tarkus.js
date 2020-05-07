@@ -1,4 +1,11 @@
 var clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
+var isChrome = navigator.userAgent.indexOf('Chrome') !== -1;
+var isSafari = navigator.userAgent.indexOf('Safari') !== -1;
+
+if (isChrome || isSafari) {
+    img = document.getElementById('white-player-center').firstElementChild;
+    img.setAttribute('alt', '');
+}
 
 Amplitude.init({
     'songs': []
@@ -181,7 +188,7 @@ var QueryListBuilder = function QueryListBuilder() {
 
         var imgElem = document.createElement('img');
         imgElem.setAttribute('src', song.cover_art_url);
-        imgElem.setAttribute('alt', 'No Cover');
+        imgElem.setAttribute('alt', isChrome || isSafari ? '' : ' ');
         imgElem.setAttribute('album-to-add', song.album_id);
 
         this._addAlbumToPlaylistEvent(imgElem);
