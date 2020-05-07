@@ -181,6 +181,7 @@ var QueryListBuilder = function QueryListBuilder() {
 
         var imgElem = document.createElement('img');
         imgElem.setAttribute('src', song.cover_art_url);
+        imgElem.setAttribute('alt', 'No Cover');
         imgElem.setAttribute('album-to-add', song.album_id);
 
         this._addAlbumToPlaylistEvent(imgElem);
