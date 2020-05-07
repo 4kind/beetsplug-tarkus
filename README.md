@@ -7,6 +7,7 @@ Current features:
 * add song to playlist
 * add album to playlist
 * delete song from playlist
+* show lyrics
 * responsive layout
 
 # Prerequisites
