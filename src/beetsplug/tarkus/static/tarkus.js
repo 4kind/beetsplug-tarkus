@@ -1,32 +1,44 @@
 var clickTouch = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) ? 'touchstart' : 'click';
 var isChrome = navigator.userAgent.indexOf('Chrome') !== -1;
 var isSafari = navigator.userAgent.indexOf('Safari') !== -1;
+var albumCoverContainer = document.getElementById('white-player-center').getElementsByClassName('main-album-art-container')[0];
+var albumCover = albumCoverContainer.getElementsByTagName('img')[0];
+var lyricsElem = albumCoverContainer.getElementsByClassName('lyrics')[0];
+var whitePlayerPlaylistContainer = document.getElementById('white-player-playlist-container');
 
+/**
+ * On Chrome and Safari alt="" instead of alt=" " is needed to hide broken image symbol if album art is missing
+ */
 if (isChrome || isSafari) {
-    img = document.getElementById('white-player-center').firstElementChild;
-    img.setAttribute('alt', '');
+    albumCover.setAttribute('alt', '');
 }
 
-Amplitude.init({
-    'songs': []
-});
+/**
+ * Shows lyrics
+ */
+albumCoverContainer.addEventListener(clickTouch, function () {
+    var song = Amplitude.getActiveSongMetadata();
+    albumCover.classList.toggle('hidden');
+    lyricsElem.classList.toggle('hidden');
+    lyricsElem.innerText = song.lyrics;
+}, false);
 
 /**
  * Shows the playlist
  */
 document.getElementsByClassName('show-playlist')[0].addEventListener(clickTouch, function () {
-    document.getElementById('white-player-playlist-container').classList.remove('slide-out-top');
-    document.getElementById('white-player-playlist-container').classList.add('slide-in-top');
-    document.getElementById('white-player-playlist-container').style.display = 'block';
+    whitePlayerPlaylistContainer.classList.remove('slide-out-top');
+    whitePlayerPlaylistContainer.classList.add('slide-in-top');
+    whitePlayerPlaylistContainer.style.display = 'block';
 }, false);
 
 /**
  * Hide the playlist
  */
 document.getElementsByClassName('close-playlist')[0].addEventListener(clickTouch, function () {
-    document.getElementById('white-player-playlist-container').classList.remove('slide-in-top');
-    document.getElementById('white-player-playlist-container').classList.add('slide-out-top');
-    document.getElementById('white-player-playlist-container').style.display = 'none';
+    whitePlayerPlaylistContainer.classList.remove('slide-in-top');
+    whitePlayerPlaylistContainer.classList.add('slide-out-top');
+    whitePlayerPlaylistContainer.style.display = 'none';
 }, false);
 
 var queryInput = document.getElementById("query");
@@ -65,6 +77,7 @@ var Song = function Song(item) {
     this.year = item.year;
     this.album = item.album;
     this.album_id = item.album_id;
+    this.lyrics = item.lyrics;
     this.url = '/item/' + item.id + '/file';
     this.cover_art_url = '/album/' + item.album_id + '/art';
 };
@@ -78,7 +91,6 @@ var QueryListBuilder = function QueryListBuilder() {
     this.songsToAdd = [];
     this.songsNodeContainer = document.getElementById('songs-node-container');
     this.songsNodeContainer.innerHTML = '';
-    this.next = document.getElementById('next');
 
     /**
      * Execute async beets request
@@ -309,14 +321,38 @@ var QueryListBuilder = function QueryListBuilder() {
         var newIndex = Amplitude.addSong(this.songsToAdd[songToAddIndex]);
 
         this._appendToSongDisplay(this.songsToAdd[songToAddIndex], newIndex);
-        Amplitude.bindNewElements();
 
-        var isFirstSong = Amplitude.getSongs().length === 1;
+        var songs = Amplitude.getSongs();
+        var isFirstSong = songs.length === 1;
         if (isFirstSong) {
+            Amplitude.init({
+                songs: [
+                    songs[0]
+                ],
+                callbacks: {
+                    song_change: function () {
+                        if (albumCover.classList.contains('hidden')) {
+                            var song = Amplitude.getActiveSongMetadata();
+                            lyricsElem.innerText = song.lyrics;
+                        }
+                    }
+                }
+            });
+
             Amplitude.next();
         }
     }
 
+    /**
+     * Get index of current song in Amplitude
+     *
+     * @param {Array.<Song>} songs
+     * @param {Song} song
+     *
+     * @returns {Number}
+     *
+     * @private
+     */
     this._getIndexOfSong = function (songs, song) {
         return songs.findIndex(function (x) {
             return x.id === song.id;

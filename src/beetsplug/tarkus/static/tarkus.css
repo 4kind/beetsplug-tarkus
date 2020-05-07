@@ -40,11 +40,37 @@ div.white-player-top img.show-playlist {
 
 div#white-player-center img.main-album-art {
     display: block;
-    margin: 16px auto 50px;
+    margin: 16px auto;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     color: #AAAFB3;
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    height: 320px
+}
+
+div#white-player-center img.main-album-art.hidden {
+    opacity: 0.1
+}
+
+div#white-player-center div.main-album-art-container {
+    cursor: pointer;
+    height: 320px;
+    margin-bottom: 30px
+}
+
+div#white-player-center div.main-album-art-container .lyrics {
+    position: relative;
+    top: -330px;
+    width: 310px;
+    margin: 16px auto 50px;
+    font-size: 14px;
+    height: 310px;
+    max-height: 310px;
+    text-align: center;
+    overflow-y: scroll
+}
+
+div#white-player-center div.main-album-art-container .lyrics.hidden {
+    display: none
 }
 
 div#white-player-center div.song-meta-data span.song-name {
