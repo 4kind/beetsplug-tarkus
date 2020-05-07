@@ -43,6 +43,7 @@ div#white-player-center img.main-album-art {
     margin: 16px auto 50px;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    color: #AAAFB3;
     width: 280px;
     height: 280px
 }
@@ -517,6 +518,7 @@ div.album-to-add .album-art img {
     border-radius: 6px;
     width: 30%;
     cursor: pointer;
+    color: #AAAFB3;
     float: left
 }
 
@@ -590,6 +592,7 @@ input#query {
     font-size: 18px;
     padding-left: 10px;
     border: 0;
+    float: left;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12)
 }
 
@@ -601,6 +604,7 @@ button#queryBtn {
     background-color: #fff;
     font-size: 18px;
     color: #414344;
+    float: left;
     font-family: "Lato", sans-serif;
     font-weight: 600;
     border: 0;
