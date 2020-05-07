@@ -4,7 +4,7 @@
 from setuptools import setup
 
 setup(
-    name='tarkus',
+    name='beets-tarkus',
     version='0.0.1',
     description='alternate web GUI using AmplitudeJS',
     author='Andreas Kind',
