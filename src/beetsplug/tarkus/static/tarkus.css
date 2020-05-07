@@ -596,11 +596,12 @@ body div.example-container {
 }
 
 body div.example-container div.left {
-    width: 50%
+    width: 50%;
+    max-width: 375px
 }
 
 body div.example-container div.right {
-    width: calc(50% - 10px)
+    width: 50%
 }
 
 #query-container {
